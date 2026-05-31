@@ -1,3 +1,4 @@
+using DragoSharp.Models.Elements;
 using DragoSharp.Models.Utils;
 
 namespace DragoSharp.Models.Dragons;
@@ -8,5 +9,5 @@ public class Electric : Dragon
         { "Pikachu", "Magnemite", "Voltorb", "Electabuzz", "Jolteon" };
 
     public Electric(int environmentLevel, float startingHealth)
-        : base(Statics.PickRItem(Types)!, environmentLevel, startingHealth) { }
+        : base(Statics.PickRItem(Types)!, environmentLevel, startingHealth, 100, ElementType.Electro) { }
 }

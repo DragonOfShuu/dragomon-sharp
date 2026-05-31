@@ -31,8 +31,8 @@ public sealed class TileResult
 
     public TileResult(string[] messages, Dragons.Dragon? dragon = null, bool hasEncounterChance = false)
     {
-        Messages           = messages;
-        Dragon             = dragon;
+        Messages = messages;
+        Dragon = dragon;
         HasEncounterChance = hasEncounterChance;
     }
 

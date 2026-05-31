@@ -19,34 +19,34 @@ public class Save : IEditableItem
 
     // ── State ─────────────────────────────────────────────────────────────────
 
-    private readonly long   _id;
+    private readonly long _id;
     private readonly string _filePath;
-    private Game            _game;
+    private Game _game;
 
-    public string?   SaveName  { get; set; }
-    public DateTime  DateMade  { get; private set; }
-    public bool      Favorite  { get; private set; }
+    public string? SaveName { get; set; }
+    public DateTime DateMade { get; private set; }
+    public bool Favorite { get; private set; }
 
     // ── Construction ──────────────────────────────────────────────────────────
 
     public Save(Game game)
     {
         _counter++;
-        _game     = game;
-        DateMade  = DateTime.Now;
-        _id       = (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() / 2L) + _counter;
+        _game = game;
+        DateMade = DateTime.Now;
+        _id = (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() / 2L) + _counter;
         _filePath = Path.Combine(FolderPath, $"{_id}.json");
     }
 
     /// <summary>Used by the load system to reconstruct a Save from disk.</summary>
     private Save(Game game, long id, string filePath, string? name, DateTime date, bool fav)
     {
-        _game     = game;
-        _id       = id;
+        _game = game;
+        _id = id;
         _filePath = filePath;
-        SaveName  = name;
-        DateMade  = date;
-        Favorite  = fav;
+        SaveName = name;
+        DateMade = date;
+        Favorite = fav;
     }
 
     public Game Game => _game;
@@ -92,7 +92,7 @@ public class Save : IEditableItem
             try
             {
                 string json = File.ReadAllText(file);
-                var data    = JsonSerializer.Deserialize<SaveData>(json);
+                var data = JsonSerializer.Deserialize<SaveData>(json);
                 if (data == null) continue;
                 results.Add(FromSaveData(data, file));
             }
@@ -108,17 +108,17 @@ public class Save : IEditableItem
 
     private SaveData ToSaveData()
     {
-        var world  = _game.World;
+        var world = _game.World;
         var player = world.Player;
 
         // Serialize dragons
         var dragonData = player.Backpack.Select((d, i) => new DragonData
         {
             DragonType = d.GetType().Name,
-            Name       = d.Name,
-            Nickname   = d.Nickname,
-            Level      = d.Level,
-            Health     = d.Health,
+            Name = d.Name,
+            Nickname = d.Nickname,
+            Level = d.Level,
+            Health = d.Health,
             IsFavorite = d.IsFavorite
         }).ToArray();
 
@@ -138,19 +138,19 @@ public class Save : IEditableItem
 
         return new SaveData
         {
-            Id                = _id,
-            SaveName          = SaveName,
-            DateMade          = DateMade,
-            Favorite          = Favorite,
-            PlayerName        = player.Name,
-            PlayerX           = player.XPos,
-            PlayerY           = player.YPos,
-            PlayerXp          = player.Xp,
+            Id = _id,
+            SaveName = SaveName,
+            DateMade = DateMade,
+            Favorite = Favorite,
+            PlayerName = player.Name,
+            PlayerX = player.XPos,
+            PlayerY = player.YPos,
+            PlayerXp = player.Xp,
             ActiveDragonIndex = activeIdx,
-            WorldSizeX        = world.SizeX,
-            WorldSizeY        = world.SizeY,
-            Tiles             = tileData,
-            Dragons           = dragonData
+            WorldSizeX = world.SizeX,
+            WorldSizeY = world.SizeY,
+            Tiles = tileData,
+            Dragons = dragonData
         };
     }
 
@@ -187,14 +187,14 @@ public class Save : IEditableItem
     {
         Dragon dragon = d.DragonType switch
         {
-            "Earth"    => new Earth   (d.Level, d.Health),
-            "Fire"     => new Fire    (d.Level, d.Health),
-            "Water"    => new Water   (d.Level, d.Health),
+            "Earth" => new Earth(d.Level, d.Health),
+            "Fire" => new Fire(d.Level, d.Health),
+            "Water" => new Water(d.Level, d.Health),
             "Electric" => new Electric(d.Level, d.Health),
-            "Ice"      => new Ice     (d.Level, d.Health),
-            "Nature"   => new Nature  (d.Level, d.Health),
-            "Wind"     => new Wind    (d.Level, d.Health),
-            _          => new Dragon  (d.Name, d.Level, d.Health)
+            "Ice" => new Ice(d.Level, d.Health),
+            "Nature" => new Nature(d.Level, d.Health),
+            "Wind" => new Wind(d.Level, d.Health),
+            _ => new Dragon(d.Name, d.Level, d.Health)
         };
         // Named dragons (like the starter "Shuckle") need their Name restored
         // via the nickname if the species name differs:
@@ -213,12 +213,12 @@ public class Save : IEditableItem
     {
         Tile tile = t.TileType switch
         {
-            "Forest"    => new Forest(),
-            "Home"      => new Home(),
-            "Mountain"  => new Mountain(),
-            "Swamp"     => new Swamp(),
+            "Forest" => new Forest(),
+            "Home" => new Home(),
+            "Mountain" => new Mountain(),
+            "Swamp" => new Swamp(),
             "Mistlands" => new Mistlands(),
-            _           => new Grassland()
+            _ => new Grassland()
         };
         tile.Explored = t.Explored;
         return tile;
@@ -234,12 +234,12 @@ public class Save : IEditableItem
     bool IEditableItem.CanDelete => true;
     bool IEditableItem.Delete()
     {
-        try   { File.Delete(_filePath); return true; }
+        try { File.Delete(_filePath); return true; }
         catch { return false; }
     }
 
-    bool IEditableItem.CanAdd                  => true;
-    bool IEditableItem.Add()                   => false;   // "add" means create new — handled by controller
+    bool IEditableItem.CanAdd => true;
+    bool IEditableItem.Add() => false;   // "add" means create new — handled by controller
     bool IEditableItem.IsCompleteObjectAddition => true;   // signals EditUI to show a "Create new…" option
 
     bool IEditableItem.CanRename => true;
@@ -251,7 +251,7 @@ public class Save : IEditableItem
     }
 
     bool IEditableItem.CanUse => true;
-    bool IEditableItem.Use()  => true;   // "use" = select this save
+    bool IEditableItem.Use() => true;   // "use" = select this save
 
     bool IEditableItem.CanFavorite => true;
     bool IEditableItem.ToggleFavorite()

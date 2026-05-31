@@ -1,3 +1,5 @@
+using DragoSharp.Models.Elements;
+
 namespace DragoSharp.Models;
 
 /// <summary>
@@ -7,10 +9,14 @@ namespace DragoSharp.Models;
 public abstract class Entity
 {
     public float Health { get; protected set; }
-    public Elements.Element? Element { get; protected set; }
+    public float MaxHealth { get; protected set; }
+    public ElementalState? Element { get; protected set; }
 
-    protected Entity(float startingHealth)
+    protected Entity(float startingHealth, float maxHealth = 100, ElementType? startingElement = null)
     {
         Health = startingHealth;
+        MaxHealth = maxHealth;
+        Element = startingElement.HasValue ? new ElementalState(0, startingElement.Value) : null;
     }
+
 }

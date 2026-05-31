@@ -1,4 +1,6 @@
 using DragoSharp.Common;
+using DragoSharp.Models.Elements;
+using DragoSharp.Views;
 
 namespace DragoSharp.Models.Dragons;
 
@@ -9,32 +11,32 @@ namespace DragoSharp.Models.Dragons;
 /// </summary>
 public class Dragon : Entity, IEditableItem
 {
-    public string Name     { get; private set; }
+    public string Name { get; private set; }
     public string? Nickname { get; set; }
-    public int    Level    { get; private set; }
-    public bool   IsFavorite { get; set; }
+    public int Level { get; private set; }
+    public bool IsFavorite { get; set; }
 
-    public Dragon(string name, int level, float startingHealth)
-        : base(startingHealth)
+    public Dragon(string name, int level, float startingHealth, float maxHealth = 100, ElementType? element = null)
+        : base(startingHealth, maxHealth, element)
     {
-        Name  = name;
+        Name = name;
         Level = level;
     }
 
     /// <summary>Nickname if set, otherwise the species name.</summary>
     public string PreferredName => Nickname ?? Name;
 
-    public override string ToString() => $"{PreferredName} lvl {Level}";
+    public override string ToString() => $"{PreferredName} lvl {Level} health {Component.GetProgressBar((int)Health, (int)MaxHealth)}";
 
     // ── IEditableItem ────────────────────────────────────────────────────────
 
     string IEditableItem.DisplayName => ToString();
 
-    bool IEditableItem.CanDelete   => false;
-    bool IEditableItem.Delete()    => false;
+    bool IEditableItem.CanDelete => false;
+    bool IEditableItem.Delete() => false;
 
-    bool IEditableItem.CanAdd      => false;
-    bool IEditableItem.Add()       => false;
+    bool IEditableItem.CanAdd => false;
+    bool IEditableItem.Add() => false;
 
     bool IEditableItem.IsCompleteObjectAddition => false;
 
@@ -46,8 +48,8 @@ public class Dragon : Entity, IEditableItem
         return true;
     }
 
-    bool IEditableItem.CanUse  => false;
-    bool IEditableItem.Use()   => false;
+    bool IEditableItem.CanUse => false;
+    bool IEditableItem.Use() => false;
 
     bool IEditableItem.CanFavorite => true;
     bool IEditableItem.ToggleFavorite()

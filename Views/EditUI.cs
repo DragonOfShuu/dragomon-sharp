@@ -19,9 +19,9 @@ public class EditUI
 
     public class Result
     {
-        public ExitReason     Reason      { get; init; }
+        public ExitReason Reason { get; init; }
         public IEditableItem? SelectedItem { get; init; }
-        public bool           CreatedNew  => Reason == ExitReason.CreatedNew;
+        public bool CreatedNew => Reason == ExitReason.CreatedNew;
     }
 
     // ── Entry point ───────────────────────────────────────────────────────────
@@ -83,7 +83,7 @@ public class EditUI
         {
             Console.WriteLine($"{item.DisplayName} selected.");
 
-            var actions    = AvailableActions(item, supportsCreate);
+            var actions = AvailableActions(item, supportsCreate);
             var actionLabels = actions.Select(a => a.ToString()).ToArray();
             int choice = Question.ChooseItem("What would you like to do?", actionLabels);
             Action action = actions[choice];
@@ -127,11 +127,11 @@ public class EditUI
     private static Action[] AvailableActions(IEditableItem item, bool includeAdd)
     {
         var list = new List<Action>();
-        if (item.CanUse)      list.Add(Action.Use);
+        if (item.CanUse) list.Add(Action.Use);
         if (item.CanFavorite) list.Add(Action.Favourite);
-        if (item.CanRename)   list.Add(Action.Rename);
+        if (item.CanRename) list.Add(Action.Rename);
         if (item.CanAdd && includeAdd) list.Add(Action.Add);
-        if (item.CanDelete)   list.Add(Action.Delete);
+        if (item.CanDelete) list.Add(Action.Delete);
         list.Add(Action.Back);
         return list.ToArray();
     }

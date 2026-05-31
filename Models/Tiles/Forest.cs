@@ -7,9 +7,9 @@ public class Forest : Tile
 {
     public override TileResult Activate(Player.Player player)
     {
-        var dragon = GenDragon(10,
+        var dragon = GenDragon(4,
             new Water(Statics.GenRNum(21, 45), 100),
-            new Wind (Statics.GenRNum(21, 45), 100),
+            new Wind(Statics.GenRNum(21, 45), 100),
             new Earth(Statics.GenRNum(21, 45), 100),
             new Nature(Statics.GenRNum(21, 45), 100));
 
@@ -19,6 +19,6 @@ public class Forest : Tile
             hasEncounterChance: true);
     }
 
-    public override char   Repr => 'F';
+    public override char Repr => 'F';
     public override string Name => "Forest";
 }

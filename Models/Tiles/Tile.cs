@@ -23,7 +23,7 @@ public abstract class Tile
     public TileResult Activation(Player.Player player)
     {
         var result = Activate(player);
-        Explored   = true;
+        Explored = true;
         return result;
     }
 

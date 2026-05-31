@@ -29,8 +29,8 @@ public class World
     private List<List<Tile>> _tiles = new();
     private bool _generated;
 
-    public int SizeX    { get; private set; }
-    public int SizeY    { get; private set; }
+    public int SizeX { get; private set; }
+    public int SizeY { get; private set; }
     public Player.Player Player { get; private set; }
     public bool IsGenerated => _generated;
 
@@ -38,8 +38,8 @@ public class World
 
     public World(int sizeX, int sizeY, Player.Player player)
     {
-        SizeX  = sizeX;
-        SizeY  = sizeY;
+        SizeX = sizeX;
+        SizeY = sizeY;
         Player = player;
     }
 
@@ -54,7 +54,7 @@ public class World
 
     public bool TileExists(int x, int y)
     {
-        try   { return GetTile(x, y) != null; }
+        try { return GetTile(x, y) != null; }
         catch { return false; }
     }
 
@@ -93,7 +93,7 @@ public class World
         var rand = new Random();
         for (int y = 0; y < _tiles.Count; y++)
         {
-            var row   = _tiles[y];
+            var row = _tiles[y];
             float chance = 100f * (SizeX / 10f) / ((float)y * 3f);
             for (int x = 0; x < row.Count; x++)
                 if (rand.NextSingle() * 100f <= chance)
@@ -107,8 +107,8 @@ public class World
         var rand = new Random();
         for (int y = 0; y < _tiles.Count; y++)
         {
-            var row    = _tiles[y];
-            float inv  = Statics.InvertNum(y, 0, _tiles.Count - 1);
+            var row = _tiles[y];
+            float inv = Statics.InvertNum(y, 0, _tiles.Count - 1);
             float chance = 100f * (SizeX / 16f) / (inv * 4f);
             for (int x = 0; x < row.Count; x++)
                 if (rand.NextSingle() * 100f <= chance)
@@ -169,7 +169,7 @@ public class World
     /// </summary>
     internal void RestoreTiles(List<List<Tile>> tiles)
     {
-        _tiles     = tiles;
+        _tiles = tiles;
         _generated = true;
     }
 

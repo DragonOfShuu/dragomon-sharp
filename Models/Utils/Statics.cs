@@ -36,9 +36,9 @@ public static class Statics
     /// </summary>
     public static float InvertNum(float num, float min, float max)
     {
-        float diff   = max - min;
-        float norm   = num - min;
-        double pct   = (double)norm / (double)diff;
+        float diff = max - min;
+        float norm = num - min;
+        double pct = (double)norm / (double)diff;
         return (float)((1.0 - pct) * (double)diff) + min;
     }
 }

@@ -17,7 +17,7 @@ public class AppController
     {
         Screen.Clear();
 
-        try   { RunLogo(); }
+        try { RunLogo(); }
         catch { /* swallow Ctrl-C during logo */ }
 
         Save save = DetermineSave();
@@ -56,7 +56,7 @@ public class AppController
 
         if (playIntro)
         {
-            try   { playerName = RunIntroduction(); }
+            try { playerName = RunIntroduction(); }
             catch { playerName = Question.RequestString("Give your name:"); }
         }
         else
@@ -71,7 +71,7 @@ public class AppController
             new[] { 16, 32, 64 });
 
         var player = new Models.Player.Player(playerName, size / 2, size / 2);
-        var world  = new World(size, size, player);
+        var world = new World(size, size, player);
         world.Generate();
 
         return new Game(world);
@@ -100,23 +100,24 @@ public class AppController
 
     private void RunLogo()
     {
-        Console.WriteLine("                         LogiBunk Studios Presents:");
-        Console.WriteLine("    ___  ________  ___      ___ ________  _____ ______   ________  ________      ");
-        Thread.Sleep(400);
-        Console.WriteLine("   |\\  \\|\\   __  \\|\\  \\    /  /|\\   __  \\|\\   _ \\  _   \\|\\   __  \\|\\   ___  \\    ");
-        Thread.Sleep(400);
-        Console.WriteLine("   \\ \\  \\ \\  \\|\\  \\ \\  \\  /  / | \\  \\|\\  \\ \\  \\\\\\__\\ \\  \\ \\  \\|\\  \\ \\  \\\\ \\  \\   ");
-        Thread.Sleep(400);
-        Console.WriteLine(" __ \\ \\  \\ \\   __  \\ \\  \\/  / / \\ \\   __  \\ \\  \\\\|__| \\  \\ \\  \\\\\\  \\ \\  \\\\ \\  \\  ");
-        Thread.Sleep(400);
-        Console.WriteLine("|\\  \\\\_\\  \\ \\  \\ \\  \\ \\    / /   \\ \\  \\ \\  \\ \\  \\    \\ \\  \\ \\  \\\\\\  \\ \\  \\\\ \\  \\ ");
-        Thread.Sleep(400);
-        Console.WriteLine("\\ \\________\\ \\__\\ \\__\\ \\__/ /     \\ \\__\\ \\__\\ \\__\\    \\ \\__\\ \\_______\\ \\__\\\\ \\__\\");
-        Thread.Sleep(400);
-        Console.WriteLine(" \\|________|\\|__|\\|__|\\|__|/       \\|__|\\|__|\\|__|     \\|__|\\|_______|\\|__| \\|__|");
-        Thread.Sleep(400);
-        Console.WriteLine("                         Press Enter to Continue...");
-        Console.ReadLine();
+        string[] logoLines =
+        {
+            "██████╗ ██████╗  █████╗  ██████╗  ██████╗ ███████╗██╗  ██╗ █████╗ ██████╗ ██████╗ ",
+            "██╔══██╗██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗██╔════╝██║  ██║██╔══██╗██╔══██╗██╔══██╗",
+            "██║  ██║██████╔╝███████║██║  ███╗██║   ██║███████╗███████║███████║██████╔╝██████╔╝",
+            "██║  ██║██╔══██╗██╔══██║██║   ██║██║   ██║╚════██║██╔══██║██╔══██║██╔══██╗██╔═══╝ ",
+            "██████╔╝██║  ██║██║  ██║╚██████╔╝╚██████╔╝███████║██║  ██║██║  ██║██║  ██║██║     ",
+            "╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     "
+        };
+
+        foreach (string line in logoLines)
+        {
+            Screen.WriteLine(line);
+            Thread.Sleep(400);
+        }
+
+        Screen.WriteLine("                         Press Enter to Continue...");
+        Screen.ReadLine();
         Screen.Clear();
     }
 
@@ -152,7 +153,7 @@ public class AppController
         Screen.BlankLine();
         Screen.Typed("...wait, what's your name again?");
 
-        string playerName = Console.ReadLine() ?? "Unknown";
+        string playerName = Screen.ReadLine() ?? "Unknown";
 
         Screen.BlankLine();
         Screen.Typed($"Oh yeah, it's {playerName}.");

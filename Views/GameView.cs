@@ -38,13 +38,13 @@ public static class GameView
     /// </param>
     public static void RenderMiniMap(World world, Player player, int radius, bool hideUnexplored)
     {
-        int size  = radius * 2 + 1;
-        var map   = new string[size, size];
+        int size = radius * 2 + 1;
+        var map = new string[size, size];
 
-        int topY    = player.YPos + radius;
+        int topY = player.YPos + radius;
         int bottomY = player.YPos - radius;
-        int leftX   = player.XPos - radius;
-        int rightX  = player.XPos + radius;
+        int leftX = player.XPos - radius;
+        int rightX = player.XPos + radius;
 
         int row = 0;
         for (int y = topY; y >= bottomY; y--)

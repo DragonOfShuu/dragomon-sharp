@@ -6,6 +6,15 @@ namespace DragoSharp.Views;
 /// </summary>
 public static class Screen
 {
+    /// <summary>Writes text to the terminal without a trailing newline.</summary>
+    public static void Write(string text) => Console.Write(text);
+
+    /// <summary>Writes a line to the terminal.</summary>
+    public static void WriteLine(string text) => Console.WriteLine(text);
+
+    /// <summary>Reads a line of input from the terminal.</summary>
+    public static string? ReadLine() => Console.ReadLine();
+
     /// <summary>
     /// Clears the terminal (works on most platforms / terminals).
     /// </summary>
@@ -26,19 +35,19 @@ public static class Screen
         {
             foreach (char c in text)
             {
-                Console.Write(c);
+                Write(c.ToString());
                 Thread.Sleep(msPerChar);
             }
         }
         catch (ThreadInterruptedException)
         {
             // If the thread is interrupted, print the rest immediately.
-            Console.WriteLine();
-            Console.WriteLine(text);
+            BlankLine();
+            WriteLine(text);
             return;
         }
 
-        Console.WriteLine();
+        BlankLine();
     }
 
     /// <summary>Prints a blank line.</summary>
@@ -47,7 +56,7 @@ public static class Screen
     /// <summary>Waits for the user to press Enter.</summary>
     public static void AwaitUser()
     {
-        Console.WriteLine("<Press Enter to Continue>");
-        Console.ReadLine();
+        WriteLine("<Press Enter to Continue>");
+        ReadLine();
     }
 }

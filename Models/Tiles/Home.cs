@@ -12,6 +12,6 @@ public class Home : Tile
         });
     }
 
-    public override char   Repr => 'H';
+    public override char Repr => 'H';
     public override string Name => "Home";
 }

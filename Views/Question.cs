@@ -6,7 +6,7 @@ namespace DragoSharp.Views;
 /// </summary>
 public static class Question
 {
-    private static readonly string[] TrueAnswers  =
+    private static readonly string[] TrueAnswers =
         { "yes", "indeed", "mhm", "true", "t", "y", "yep", "uh-huh" };
 
     private static readonly string[] FalseAnswers =
@@ -69,7 +69,7 @@ public static class Question
         while (true)
         {
             string answer = RequestString(prompt).Trim().ToLowerInvariant();
-            if (TrueAnswers.Contains(answer))  return true;
+            if (TrueAnswers.Contains(answer)) return true;
             if (FalseAnswers.Contains(answer)) return false;
             Console.WriteLine("Your answer was not a valid yes or no.");
         }
@@ -118,7 +118,7 @@ public static class Question
         for (int i = 0; i < options.Length; i++)
         {
             if (options[i] == "-")
-                Console.WriteLine();          // separator — prints blank, still occupies index i
+                Screen.BlankLine();          // separator — prints blank, still occupies index i
             else
                 Console.WriteLine($"[{i}] {options[i]}");
         }

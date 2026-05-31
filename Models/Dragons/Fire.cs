@@ -1,3 +1,4 @@
+using DragoSharp.Models.Elements;
 using DragoSharp.Models.Utils;
 
 namespace DragoSharp.Models.Dragons;
@@ -8,5 +9,5 @@ public class Fire : Dragon
         { "Charmander", "Vulpix", "Growlithe", "Ponyta", "Flareon" };
 
     public Fire(int environmentLevel, float startingHealth)
-        : base(Statics.PickRItem(Types)!, environmentLevel, startingHealth) { }
+        : base(Statics.PickRItem(Types)!, environmentLevel, startingHealth, 100, ElementType.Pyro) { }
 }

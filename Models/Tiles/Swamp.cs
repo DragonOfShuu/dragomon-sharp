@@ -7,9 +7,9 @@ public class Swamp : Tile
 {
     public override TileResult Activate(Player.Player player)
     {
-        var dragon = GenDragon(10,
-            new Water   (Statics.GenRNum(61, 85), 100),
-            new Nature  (Statics.GenRNum(61, 85), 100),
+        var dragon = GenDragon(4,
+            new Water(Statics.GenRNum(61, 85), 100),
+            new Nature(Statics.GenRNum(61, 85), 100),
             new Electric(Statics.GenRNum(41, 65), 100));
 
         return new TileResult(
@@ -18,6 +18,6 @@ public class Swamp : Tile
             hasEncounterChance: true);
     }
 
-    public override char   Repr => 'S';
+    public override char Repr => 'S';
     public override string Name => "Swamp";
 }

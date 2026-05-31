@@ -73,8 +73,8 @@ public class GameController
         switch (action)
         {
             // Movement — (0,0) is bottom-left; north = +y, east = +x
-            case 0: HandleMove(0,  1); break;   // North
-            case 1: HandleMove(1,  0); break;   // East
+            case 0: HandleMove(0, 1); break;   // North
+            case 1: HandleMove(1, 0); break;   // East
             case 2: HandleMove(-1, 0); break;   // West
             case 3: HandleMove(0, -1); break;   // South
 
@@ -150,12 +150,11 @@ public class GameController
 
     private void OpenMap()
     {
-        var world  = _game.World;
+        var world = _game.World;
         var player = world.Player;
 
         Screen.Clear();
-        Console.WriteLine("=== World Map (radius 8) ===");
+        Screen.WriteLine("=== World Map (radius 8) ===");
         GameView.RenderMiniMap(world, player, radius: 8, hideUnexplored: true);
-        Screen.AwaitUser();
     }
 }
