@@ -5,6 +5,7 @@ namespace DragoSharp.Models.Dragons;
 
 public static class Geo
 {
+    private static readonly List<DragonProperties> geoDragons = [];
     // Sandshrew - common earth dragon from grassland/swamp
     public static readonly DragonProperties Sandshrew = new DragonProperties()
         .Name("Sandshrew")
@@ -15,7 +16,8 @@ public static class Geo
             new AttackPattern().Name("Earthquake").Description("The earth shakes").Damage(15).Infliction(new ElementalInfliction(ElementType.Geo, 2, 1)).Chance(40),
             new AttackPattern().Name("Fury Swipes").Description("Rapid sand swipes").Damage(13).Chance(30)
         ])
-        .Chance(30);
+        .Chance(30)
+        .AddTo(geoDragons);
 
     // Diglett - common earth dragon from grassland/swamp
     public static readonly DragonProperties Diglett = new DragonProperties()
@@ -27,7 +29,8 @@ public static class Geo
             new AttackPattern().Name("Mud Slap").Description("Mud slaps the foe").Damage(14).Infliction(new ElementalInfliction(ElementType.Geo, 2, 1)).Chance(40),
             new AttackPattern().Name("Dig").Description("Digs underground").Damage(12).Chance(35)
         ])
-        .Chance(32);
+        .Chance(32)
+        .AddTo(geoDragons);
 
     // Cubone - uncommon earth dragon from mountains
     public static readonly DragonProperties Cubone = new DragonProperties()
@@ -39,7 +42,8 @@ public static class Geo
             new AttackPattern().Name("Rock Throw").Description("Throws rocks").Damage(17).Infliction(new ElementalInfliction(ElementType.Geo, 2, 1)).Chance(38),
             new AttackPattern().Name("Focus Blast").Description("A focused blast of power").Damage(15).Chance(35)
         ])
-        .Chance(28);
+        .Chance(28)
+        .AddTo(geoDragons);
 
     // Phanpy - rare earth dragon from mountains with dense soil
     public static readonly DragonProperties Phanpy = new DragonProperties()
@@ -51,7 +55,8 @@ public static class Geo
             new AttackPattern().Name("Stone Edge").Description("Sharp stone edges").Damage(21).Infliction(new ElementalInfliction(ElementType.Geo, 3, 2)).Chance(40),
             new AttackPattern().Name("Boulder Crush").Description("Crushes with boulders").Damage(23).Infliction(new ElementalInfliction(ElementType.Crystallise, 3, 1)).Chance(20)
         ])
-        .Chance(15);
+        .Chance(15)
+        .AddTo(geoDragons);
 
     // Gligar - rare earth dragon from mistlands (evolved earth type)
     public static readonly DragonProperties Gligar = new DragonProperties()
@@ -64,7 +69,8 @@ public static class Geo
             new AttackPattern().Name("Avalanche").Description("An avalanche of rock").Damage(26).Chance(25),
             new AttackPattern().Name("Stone Cyclone").Description("A cyclone of stone").Damage(31).Infliction(new ElementalInfliction(ElementType.Crystallise, 4, 2)).Chance(20)
         ])
-        .Chance(10);
+        .Chance(10)
+        .AddTo(geoDragons);
 
     /// <summary>
     /// Creates a Geo-type dragon.
@@ -91,8 +97,6 @@ public static class Geo
 
     private static DragonProperties SelectRandomDragon()
     {
-        var geoDragons = new[] { Sandshrew, Diglett, Cubone, Phanpy, Gligar };
-
         int totalWeight = geoDragons.Sum(dp => dp.SelectionChance);
         int randomValue = Statics.GenRNum(0, totalWeight);
 

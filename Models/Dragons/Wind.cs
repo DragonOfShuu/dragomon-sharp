@@ -5,6 +5,8 @@ namespace DragoSharp.Models.Dragons;
 
 public static class Anemo
 {
+    private static readonly List<DragonProperties> anemoDragons = [];
+
     // Gastly - common wind dragon from swamp/mistlands
     public static readonly DragonProperties Gastly = new DragonProperties()
         .Name("Gastly")
@@ -15,7 +17,8 @@ public static class Anemo
             new AttackPattern().Name("Ominous Wind").Description("Wind carries ill intent").Damage(14).Infliction(new ElementalInfliction(ElementType.Anemo, 2, 1)).Chance(40),
             new AttackPattern().Name("Night Shade").Description("Shadowy night attack").Damage(12).Chance(30)
         ])
-        .Chance(30);
+        .Chance(30)
+        .AddTo(anemoDragons);
 
     // Misdreavus - uncommon wind dragon from mistlands
     public static readonly DragonProperties Misdreavus = new DragonProperties()
@@ -27,7 +30,8 @@ public static class Anemo
             new AttackPattern().Name("Wind Blast").Description("A blast of wind").Damage(16).Infliction(new ElementalInfliction(ElementType.Anemo, 2, 1)).Chance(38),
             new AttackPattern().Name("Screech").Description("A piercing screech").Damage(14).Chance(35)
         ])
-        .Chance(26);
+        .Chance(26)
+        .AddTo(anemoDragons);
 
     // Duskull - uncommon wind dragon from swamp/mistlands
     public static readonly DragonProperties Duskull = new DragonProperties()
@@ -39,7 +43,8 @@ public static class Anemo
             new AttackPattern().Name("Wind Storm").Description("A storm of wind").Damage(17).Infliction(new ElementalInfliction(ElementType.Anemo, 2, 1)).Chance(40),
             new AttackPattern().Name("Pursuit").Description("Pursues the foe").Damage(15).Chance(35)
         ])
-        .Chance(28);
+        .Chance(28)
+        .AddTo(anemoDragons);
 
     // Drifloon - rare wind dragon from mountains
     public static readonly DragonProperties Drifloon = new DragonProperties()
@@ -51,7 +56,8 @@ public static class Anemo
             new AttackPattern().Name("Whirlwind").Description("A spiraling whirlwind").Damage(20).Infliction(new ElementalInfliction(ElementType.Anemo, 3, 1)).Chance(40),
             new AttackPattern().Name("Minimize").Description("Makes the dragon tiny").Damage(22).Chance(20)
         ])
-        .Chance(16);
+        .Chance(16)
+        .AddTo(anemoDragons);
 
     // Spiritomb - rare wind dragon from mistlands (advanced form)
     public static readonly DragonProperties Spiritomb = new DragonProperties()
@@ -63,7 +69,8 @@ public static class Anemo
             new AttackPattern().Name("Spirit Cyclone").Description("A cyclone of spirits").Damage(24).Infliction(new ElementalInfliction(ElementType.Anemo, 3, 2)).Chance(40),
             new AttackPattern().Name("Phantom Assault").Description("Phantom wind assault").Damage(26).Infliction(new ElementalInfliction(ElementType.Swirl, 3, 1)).Chance(20)
         ])
-        .Chance(14);
+        .Chance(14)
+        .AddTo(anemoDragons);
 
     // Tornadus - rare wind dragon from mistlands (evolved wind type)
     public static readonly DragonProperties Tornadus = new DragonProperties()
@@ -76,7 +83,8 @@ public static class Anemo
             new AttackPattern().Name("Tornado Dive").Description("Dives into a tornado").Damage(30).Chance(25),
             new AttackPattern().Name("Tempest Rising").Description("Rises with a tempest").Damage(35).Infliction(new ElementalInfliction(ElementType.Swirl, 4, 2)).Chance(20)
         ])
-        .Chance(10);
+        .Chance(10)
+        .AddTo(anemoDragons);
 
     /// <summary>
     /// Creates an Anemo-type dragon.
@@ -103,8 +111,6 @@ public static class Anemo
 
     private static DragonProperties SelectRandomDragon()
     {
-        var anemoDragons = new[] { Gastly, Misdreavus, Duskull, Drifloon, Spiritomb, Tornadus };
-
         int totalWeight = anemoDragons.Sum(dp => dp.SelectionChance);
         int randomValue = Statics.GenRNum(0, totalWeight);
 

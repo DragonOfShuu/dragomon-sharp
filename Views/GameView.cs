@@ -20,7 +20,8 @@ public static class GameView
     {
         Player player = world.Player;
         Console.WriteLine($"Player Coords - ({player.XPos}, {player.YPos})");
-        Console.WriteLine($"Current Tile : {world.GetTile(player.XPos, player.YPos).Name}");
+        var currentTile = world.GetTile(player.XPos, player.YPos);
+        Console.WriteLine($"Current Tile : {(currentTile != null ? currentTile.Name : "Unknown")}");
         RenderMiniMap(world, player, radius: 1, hideUnexplored: false);
     }
 
@@ -52,16 +53,16 @@ public static class GameView
             int col = 0;
             for (int x = leftX; x <= rightX; x++)
             {
-                try
+                var tile = world.GetTile(x, y);
+                if (tile == null)
                 {
-                    var tile = world.GetTile(x, y);
+                    map[row, col] = " "; // Out of bounds
+                }
+                else
+                {
                     map[row, col] = hideUnexplored && !tile.Explored
                         ? "█"
                         : tile.Repr.ToString();
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    map[row, col] = " ";
                 }
                 col++;
             }

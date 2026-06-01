@@ -5,6 +5,8 @@ namespace DragoSharp.Models.Dragons;
 
 public static class Pyro
 {
+    private static readonly List<DragonProperties> pyroDragons = [];
+
     // Charmander - weak fire dragon from grassland/forest
     public static readonly DragonProperties Charmander = new DragonProperties()
         .Name("Charmander")
@@ -15,7 +17,8 @@ public static class Pyro
             new AttackPattern().Name("Flame Burst").Description("A sudden burst of flames").Damage(15).Infliction(new ElementalInfliction(ElementType.Pyro, 2, 1)).Chance(40),
             new AttackPattern().Name("Scratch").Description("A fierce scratch").Damage(12).Chance(30)
         ])
-        .Chance(30);
+        .Chance(30)
+        .AddTo(pyroDragons);
 
     // Vulpix - common fire dragon from grassland
     public static readonly DragonProperties Vulpix = new DragonProperties()
@@ -27,7 +30,8 @@ public static class Pyro
             new AttackPattern().Name("Fire Spin").Description("A spiraling inferno").Damage(16).Infliction(new ElementalInfliction(ElementType.Pyro, 2, 1)).Chance(35),
             new AttackPattern().Name("Quick Attack").Description("A swift strike").Damage(14).Chance(35)
         ])
-        .Chance(35);
+        .Chance(35)
+        .AddTo(pyroDragons);
 
     // Growlithe - uncommon fire dragon from forest
     public static readonly DragonProperties Growlithe = new DragonProperties()
@@ -39,7 +43,8 @@ public static class Pyro
             new AttackPattern().Name("Flame Charge").Description("A charging attack wreathed in flames").Damage(20).Infliction(new ElementalInfliction(ElementType.Pyro, 3, 2)).Chance(40),
             new AttackPattern().Name("Wild Charge").Description("A wild, desperate attack").Damage(22).Chance(25)
         ])
-        .Chance(25);
+        .Chance(25)
+        .AddTo(pyroDragons);
 
     // Ponyta - rare fire dragon from mountains
     public static readonly DragonProperties Ponyta = new DragonProperties()
@@ -51,7 +56,8 @@ public static class Pyro
             new AttackPattern().Name("Fire Blast").Description("An intense column of flames").Damage(25).Infliction(new ElementalInfliction(ElementType.Pyro, 3, 2)).Chance(38),
             new AttackPattern().Name("Inferno").Description("The ultimate fire attack").Damage(28).Chance(22)
         ])
-        .Chance(15);
+        .Chance(15)
+        .AddTo(pyroDragons);
 
     // Flareon - rare fire dragon from mistlands (evolved fire type)
     public static readonly DragonProperties Flareon = new DragonProperties()
@@ -64,7 +70,8 @@ public static class Pyro
             new AttackPattern().Name("Flamethrower").Description("A sustained stream of fire").Damage(30).Chance(25),
             new AttackPattern().Name("Burning Rage").Description("Enraged flames of destruction").Damage(35).Infliction(new ElementalInfliction(ElementType.Burning, 5, 2)).Chance(20)
         ])
-        .Chance(10);
+        .Chance(10)
+        .AddTo(pyroDragons);
 
     /// <summary>
     /// Creates a Pyro-type dragon.
@@ -99,8 +106,6 @@ public static class Pyro
 
     private static DragonProperties SelectRandomDragon()
     {
-        var pyroDragons = new[] { Charmander, Vulpix, Growlithe, Ponyta, Flareon };
-
         // Build weighted selection based on SelectionChance values
         int totalWeight = pyroDragons.Sum(dp => dp.SelectionChance);
         int randomValue = Statics.GenRNum(0, totalWeight);

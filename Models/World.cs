@@ -41,10 +41,10 @@ public class World
 
     // ── Tile access ───────────────────────────────────────────────────────────
 
-    public Tile GetTile(int x, int y)
+    public Tile? GetTile(int x, int y)
     {
         if (y < 0 || y >= _tiles.Count || x < 0 || x >= _tiles[y].Count)
-            throw new IndexOutOfRangeException($"Tile ({x},{y}) is out of bounds.");
+            return null;
         return _tiles[y][x];
     }
 

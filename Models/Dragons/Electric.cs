@@ -5,6 +5,7 @@ namespace DragoSharp.Models.Dragons;
 
 public static class Electro
 {
+    private static readonly List<DragonProperties> electroDragons = [];
     // Pikachu - common electric dragon from grassland
     public static readonly DragonProperties Pikachu = new DragonProperties()
         .Name("Pikachu")
@@ -15,7 +16,8 @@ public static class Electro
             new AttackPattern().Name("Thunder Wave").Description("Paralyzing waves of electricity").Damage(16).Infliction(new ElementalInfliction(ElementType.Electro, 2, 1)).Chance(40),
             new AttackPattern().Name("Quick Attack").Description("A swift strike").Damage(13).Chance(30)
         ])
-        .Chance(35);
+        .Chance(35)
+        .AddTo(electroDragons);
 
     // Magnemite - uncommon electric dragon from mountains
     public static readonly DragonProperties Magnemite = new DragonProperties()
@@ -27,7 +29,8 @@ public static class Electro
             new AttackPattern().Name("Electromagnetic Pulse").Description("A pulse of magnetic energy").Damage(18).Infliction(new ElementalInfliction(ElementType.Electro, 2, 1)).Chance(38),
             new AttackPattern().Name("Thunder Lock").Description("Binds opponent with electricity").Damage(17).Infliction(new ElementalInfliction(ElementType.Electrocharge, 3, 1)).Chance(25)
         ])
-        .Chance(25);
+        .Chance(25)
+        .AddTo(electroDragons);
 
     // Voltorb - common electric dragon from grassland/swamp
     public static readonly DragonProperties Voltorb = new DragonProperties()
@@ -39,7 +42,8 @@ public static class Electro
             new AttackPattern().Name("Charge Beam").Description("A beam of charging electricity").Damage(17).Infliction(new ElementalInfliction(ElementType.Electro, 2, 1)).Chance(40),
             new AttackPattern().Name("Sonic Boom").Description("A booming sound wave").Damage(15).Chance(35)
         ])
-        .Chance(30);
+        .Chance(30)
+        .AddTo(electroDragons);
 
     // Electabuzz - rare electric dragon from mountains
     public static readonly DragonProperties Electabuzz = new DragonProperties()
@@ -51,7 +55,8 @@ public static class Electro
             new AttackPattern().Name("Thunderbolt").Description("A powerful bolt of lightning").Damage(23).Infliction(new ElementalInfliction(ElementType.Electro, 3, 2)).Chance(40),
             new AttackPattern().Name("Thunder Crash").Description("Electricity crashes down").Damage(25).Infliction(new ElementalInfliction(ElementType.Overload, 3, 1)).Chance(20)
         ])
-        .Chance(15);
+        .Chance(15)
+        .AddTo(electroDragons);
 
     // Jolteon - rare electric dragon from mistlands (evolved electric type)
     public static readonly DragonProperties Jolteon = new DragonProperties()
@@ -64,7 +69,8 @@ public static class Electro
             new AttackPattern().Name("Lightning Bolt").Description("A focused bolt of lightning").Damage(28).Chance(25),
             new AttackPattern().Name("Thunder Nova").Description("A nova of electric energy").Damage(33).Infliction(new ElementalInfliction(ElementType.Electrocharge, 4, 2)).Chance(20)
         ])
-        .Chance(10);
+        .Chance(10)
+        .AddTo(electroDragons);
 
     /// <summary>
     /// Creates an Electro-type dragon.
@@ -91,8 +97,6 @@ public static class Electro
 
     private static DragonProperties SelectRandomDragon()
     {
-        var electroDragons = new[] { Pikachu, Magnemite, Voltorb, Electabuzz, Jolteon };
-
         int totalWeight = electroDragons.Sum(dp => dp.SelectionChance);
         int randomValue = Statics.GenRNum(0, totalWeight);
 

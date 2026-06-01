@@ -53,9 +53,10 @@ public class DragonProperties
     /// Adds this dragon properties to the provided collection.
     /// This should be called at the end of the builder chain.
     /// </summary>
-    public void AddTo(List<DragonProperties> collection)
+    public DragonProperties AddTo(List<DragonProperties> collection)
     {
         collection.Add(this);
+        return this;
     }
 
     // Public properties for accessing built values

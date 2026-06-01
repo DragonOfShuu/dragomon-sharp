@@ -5,6 +5,8 @@ namespace DragoSharp.Models.Dragons;
 
 public static class Dendro
 {
+    private static readonly List<DragonProperties> dendroDragons = [];
+
     // Pidgey - common nature dragon from grassland
     public static readonly DragonProperties Pidgey = new DragonProperties()
         .Name("Pidgey")
@@ -15,7 +17,8 @@ public static class Dendro
             new AttackPattern().Name("Leaf Tornado").Description("A tornado of leaves").Damage(14).Infliction(new ElementalInfliction(ElementType.Dendro, 2, 1)).Chance(40),
             new AttackPattern().Name("Peck").Description("A quick peck attack").Damage(12).Chance(30)
         ])
-        .Chance(32);
+        .Chance(32)
+        .AddTo(dendroDragons);
 
     // Rattata - common nature dragon from grassland/swamp
     public static readonly DragonProperties Rattata = new DragonProperties()
@@ -27,7 +30,8 @@ public static class Dendro
             new AttackPattern().Name("Vine Whip").Description("Whips with vines").Damage(15).Infliction(new ElementalInfliction(ElementType.Dendro, 2, 1)).Chance(40),
             new AttackPattern().Name("Super Fang").Description("A powerful bite").Damage(13).Chance(35)
         ])
-        .Chance(30);
+        .Chance(30)
+        .AddTo(dendroDragons);
 
     // Doduo - uncommon nature dragon from forest
     public static readonly DragonProperties Doduo = new DragonProperties()
@@ -39,7 +43,8 @@ public static class Dendro
             new AttackPattern().Name("Synthesis").Description("Absorbs solar energy").Damage(17).Infliction(new ElementalInfliction(ElementType.Dendro, 2, 1)).Chance(38),
             new AttackPattern().Name("Fury Attack").Description("A flurry of attacks").Damage(16).Chance(35)
         ])
-        .Chance(25);
+        .Chance(25)
+        .AddTo(dendroDragons);
 
     // Eevee - uncommon nature dragon from grassland (base form)
     public static readonly DragonProperties Eevee = new DragonProperties()
@@ -51,7 +56,8 @@ public static class Dendro
             new AttackPattern().Name("Chlorophyll Burst").Description("A burst of nature").Damage(16).Infliction(new ElementalInfliction(ElementType.Dendro, 2, 1)).Chance(40),
             new AttackPattern().Name("Swift").Description("Swift moving attack").Damage(14).Chance(35)
         ])
-        .Chance(27);
+        .Chance(27)
+        .AddTo(dendroDragons);
 
     // Tauros - rare nature dragon from mountains
     public static readonly DragonProperties Tauros = new DragonProperties()
@@ -63,7 +69,8 @@ public static class Dendro
             new AttackPattern().Name("Seed Bomb").Description("Seeds explode on impact").Damage(22).Infliction(new ElementalInfliction(ElementType.Dendro, 3, 2)).Chance(40),
             new AttackPattern().Name("Double Edge").Description("A double-edged attack").Damage(24).Chance(20)
         ])
-        .Chance(12);
+        .Chance(12)
+        .AddTo(dendroDragons);
 
     // Bidoof - rare nature dragon from mistlands (base-like evolution)
     public static readonly DragonProperties Bidoof = new DragonProperties()
@@ -75,7 +82,8 @@ public static class Dendro
             new AttackPattern().Name("Ingrain").Description("Roots the dragon in place").Damage(20).Infliction(new ElementalInfliction(ElementType.Dendro, 3, 1)).Chance(40),
             new AttackPattern().Name("Tail Whip").Description("A tail whip attack").Damage(18).Chance(30)
         ])
-        .Chance(9);
+        .Chance(9)
+        .AddTo(dendroDragons);
 
     // Leafeon - rare nature dragon from mistlands (evolved nature type)
     public static readonly DragonProperties Leafeon = new DragonProperties()
@@ -88,7 +96,8 @@ public static class Dendro
             new AttackPattern().Name("Magical Leaf").Description("Magical leaves attack").Damage(28).Chance(25),
             new AttackPattern().Name("Forest's Blessing").Description("Blesses with nature's power").Damage(33).Infliction(new ElementalInfliction(ElementType.Swirl, 4, 2)).Chance(20)
         ])
-        .Chance(8);
+        .Chance(8)
+        .AddTo(dendroDragons);
 
     /// <summary>
     /// Creates a Dendro-type dragon.
@@ -115,8 +124,6 @@ public static class Dendro
 
     private static DragonProperties SelectRandomDragon()
     {
-        var dendroDragons = new[] { Pidgey, Rattata, Doduo, Eevee, Tauros, Bidoof, Leafeon };
-
         int totalWeight = dendroDragons.Sum(dp => dp.SelectionChance);
         int randomValue = Statics.GenRNum(0, totalWeight);
 
