@@ -1,6 +1,7 @@
 using System.Text.Json;
 using DragoSharp.Common;
 using DragoSharp.Models.Dragons;
+using DragoSharp.Models.Elements;
 using DragoSharp.Models.Tiles;
 
 namespace DragoSharp.Models.Persistence;
@@ -114,12 +115,25 @@ public class Save : IEditableItem
         // Serialize dragons
         var dragonData = player.Backpack.Select((d, i) => new DragonData
         {
-            DragonType = d.GetType().Name,
+            DragonType = d.Element?.EntityElement.ToString() ?? "Generic",
             Name = d.Name,
             Nickname = d.Nickname,
             Level = d.Level,
             Health = d.Health,
-            IsFavorite = d.IsFavorite
+            IsFavorite = d.IsFavorite,
+            Attacks = d.Attacks.Select(a => new AttackPatternData
+            {
+                AttackName = a.AttackName,
+                AttackDescription = a.AttackDescription,
+                AttackDmg = a.AttackDmg,
+                SelectionChance = a.SelectionChance,
+                ElementalInfliction = a.ElementalInfliction == null ? null : new ElementalInflictionData
+                {
+                    Type = a.ElementalInfliction.Type.ToString(),
+                    Duration = a.ElementalInfliction.Duration,
+                    Magnitude = a.ElementalInfliction.Magnitude
+                }
+            }).ToArray()
         }).ToArray();
 
         int activeIdx = player.ActiveDragon != null
@@ -185,15 +199,18 @@ public class Save : IEditableItem
 
     private static Dragon BuildDragon(DragonData d)
     {
+        // Calculate health as a multiplier (0-1) from the stored health value
+        float healthMultiplier = d.Health / 100f;
+
         Dragon dragon = d.DragonType switch
         {
-            "Earth" => new Earth(d.Level, d.Health),
-            "Fire" => new Fire(d.Level, d.Health),
-            "Water" => new Water(d.Level, d.Health),
-            "Electric" => new Electric(d.Level, d.Health),
-            "Ice" => new Ice(d.Level, d.Health),
-            "Nature" => new Nature(d.Level, d.Health),
-            "Wind" => new Wind(d.Level, d.Health),
+            "Geo" => Geo.CreateDragon(d.Level, healthMultiplier, 100),
+            "Pyro" => Pyro.CreateDragon(d.Level, healthMultiplier, 100),
+            "Hydro" => Hydro.CreateDragon(d.Level, healthMultiplier, 100),
+            "Electro" => Electro.CreateDragon(d.Level, healthMultiplier, 100),
+            "Cryo" => Cryo.CreateDragon(d.Level, healthMultiplier, 100),
+            "Dendro" => Dendro.CreateDragon(d.Level, healthMultiplier, 100),
+            "Anemo" => Anemo.CreateDragon(d.Level, healthMultiplier, 100),
             _ => new Dragon(d.Name, d.Level, d.Health)
         };
         // Named dragons (like the starter "Shuckle") need their Name restored
@@ -206,6 +223,24 @@ public class Save : IEditableItem
         if (!string.IsNullOrEmpty(d.Nickname))
             dragon.Nickname = d.Nickname;
         dragon.IsFavorite = d.IsFavorite;
+        if (d.Attacks is { Length: > 0 })
+        {
+            dragon.Attacks.Clear();
+            dragon.Attacks.AddRange(d.Attacks.Select(a =>
+            {
+                var pattern = new AttackPattern()
+                    .Name(a.AttackName)
+                    .Description(a.AttackDescription)
+                    .Damage(a.AttackDmg)
+                    .Chance(a.SelectionChance);
+                if (a.ElementalInfliction != null &&
+                    Enum.TryParse<ElementType>(a.ElementalInfliction.Type, out var elemType))
+                {
+                    pattern.Infliction(new ElementalInfliction(elemType, a.ElementalInfliction.Duration, a.ElementalInfliction.Magnitude));
+                }
+                return pattern;
+            }));
+        }
         return dragon;
     }
 
@@ -228,6 +263,9 @@ public class Save : IEditableItem
 
     string IEditableItem.DisplayName =>
         SaveName ?? DateMade.ToString("g");
+
+    string IEditableItem.Description =>
+        $"Created: {DateMade:g}\nDragons: {_game.World.Player.Backpack.Count()}";
 
     bool IEditableItem.IsFavorite => Favorite;
 

@@ -31,11 +31,28 @@ public class TileData
 
 public class DragonData
 {
-    /// <summary>Class name of the dragon species (e.g. "Earth", "Fire", "Generic").</summary>
+    /// <summary>Element type name of the dragon (e.g. "Pyro", "Hydro", "Generic").</summary>
     public string DragonType { get; set; } = "Generic";
     public string Name { get; set; } = "";
     public string? Nickname { get; set; }
     public int Level { get; set; }
     public float Health { get; set; }
     public bool IsFavorite { get; set; }
+    public AttackPatternData[] Attacks { get; set; } = Array.Empty<AttackPatternData>();
+}
+
+public class AttackPatternData
+{
+    public string AttackName { get; set; } = "";
+    public string AttackDescription { get; set; } = "";
+    public int AttackDmg { get; set; }
+    public int SelectionChance { get; set; }
+    public ElementalInflictionData? ElementalInfliction { get; set; }
+}
+
+public class ElementalInflictionData
+{
+    public string Type { get; set; } = "";
+    public int Duration { get; set; }
+    public int Magnitude { get; set; }
 }

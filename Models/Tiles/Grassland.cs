@@ -7,14 +7,22 @@ public class Grassland : Tile
 {
     public override TileResult Activate(Player.Player player)
     {
-        var dragon = GenDragon(5,
-            new Water(Statics.GenRNum(1, 25), 100),
-            new Wind(Statics.GenRNum(1, 25), 100),
-            new Fire(Statics.GenRNum(1, 25), 100),
-            new Nature(Statics.GenRNum(1, 25), 100));
+        int roll = Statics.GenRNum(0, 2);
+        if (roll == 0) return new TileResult(new[] { "You entered the grassland..." }, null, hasEncounterChance: true);
+
+        int level = Statics.GenRNum(1, 25);
+        int dragonType = Statics.GenRNum(0, 4);
+
+        var dragon = dragonType switch
+        {
+            0 => Hydro.CreateDragon(level),
+            1 => Anemo.CreateDragon(level),
+            2 => Pyro.CreateDragon(level),
+            _ => Dendro.CreateDragon(level)
+        };
 
         return new TileResult(
-            new[] { "You entered the grassland..." },
+            new[] { "You encountered a dragon in the grassland!" },
             dragon,
             hasEncounterChance: true);
     }

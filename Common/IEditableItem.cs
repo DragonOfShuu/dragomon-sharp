@@ -11,6 +11,8 @@ public interface IEditableItem
     /// <summary>Text shown in the list.</summary>
     string DisplayName { get; }
 
+    string? Description { get; } // Optional multiline text shown when the item is selected; null to show nothing.
+
     bool IsFavorite { get; }
 
     bool CanDelete { get; }

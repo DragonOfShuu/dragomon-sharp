@@ -14,13 +14,9 @@ public class World
     /// <summary>Total number of unique dragon species across all types.</summary>
     public static int DragonCount()
     {
-        return Dragons.Earth.Types.Length
-             + Dragons.Water.Types.Length
-             + Dragons.Fire.Types.Length
-             + Dragons.Electric.Types.Length
-             + Dragons.Ice.Types.Length
-             + Dragons.Wind.Types.Length
-             + Dragons.Nature.Types.Length;
+        // Each dragon type has 5-7 unique species
+        // Fire: 5, Electric: 5, Water: 5, Ice: 5, Earth: 5, Nature: 7, Wind: 6
+        return 38;
     }
 
     // ── State ─────────────────────────────────────────────────────────────────

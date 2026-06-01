@@ -15,22 +15,28 @@ public class Dragon : Entity, IEditableItem
     public string? Nickname { get; set; }
     public int Level { get; private set; }
     public bool IsFavorite { get; set; }
+    public List<AttackPattern> Attacks { get; private set; }
+    public DragonProperties? Properties { get; private set; }
 
-    public Dragon(string name, int level, float startingHealth, float maxHealth = 100, ElementType? element = null)
+    public Dragon(string name, int level, float startingHealth, float maxHealth = 100, ElementType? element = null, DragonProperties? properties = null, List<AttackPattern>? attacks = null)
         : base(startingHealth, maxHealth, element)
     {
         Name = name;
         Level = level;
+        Properties = properties;
+        Attacks = attacks ?? [];
     }
 
     /// <summary>Nickname if set, otherwise the species name.</summary>
     public string PreferredName => Nickname ?? Name;
 
-    public override string ToString() => $"{PreferredName} lvl {Level} health {Component.GetProgressBar((int)Health, (int)MaxHealth)}";
+    public override string ToString() => $"{PreferredName} lvl {Level}";
 
     // ── IEditableItem ────────────────────────────────────────────────────────
 
-    string IEditableItem.DisplayName => ToString();
+    string IEditableItem.DisplayName => ToString() + $"\n\t{Component.GetProgressBar((int)Health, (int)MaxHealth)}";
+
+    string IEditableItem.Description => $"Element: {Element?.EntityElement.ToString() ?? "None"}\nHealth: {Health}/{MaxHealth}";
 
     bool IEditableItem.CanDelete => false;
     bool IEditableItem.Delete() => false;
