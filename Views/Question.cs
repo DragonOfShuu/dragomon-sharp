@@ -7,10 +7,10 @@ namespace DragoSharp.Views;
 public static class Question
 {
     private static readonly string[] TrueAnswers =
-        { "yes", "indeed", "mhm", "true", "t", "y", "yep", "uh-huh" };
+        ["yes", "indeed", "mhm", "true", "t", "y", "yep", "uh-huh"];
 
     private static readonly string[] FalseAnswers =
-        { "no", "not at all", "nah", "false", "f", "n", "nope", "nuh-uh" };
+        ["no", "not at all", "nah", "false", "f", "n", "nope", "nuh-uh"];
 
     // ── Primitives ────────────────────────────────────────────────────────────
 

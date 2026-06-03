@@ -5,12 +5,7 @@ namespace DragoSharp.Models;
 /// Holds the World (which holds the Player).
 /// All game-flow logic lives in GameController; this is pure data.
 /// </summary>
-public class Game
+public class Game(World world)
 {
-    public World World { get; private set; }
-
-    public Game(World world)
-    {
-        World = world;
-    }
+    public World World { get; private set; } = world;
 }

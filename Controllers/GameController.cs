@@ -68,8 +68,6 @@ public class GameController
 
     private bool HandleAction(int action)
     {
-        var world = _game.World;
-
         switch (action)
         {
             // Movement — (0,0) is bottom-left; north = +y, east = +x

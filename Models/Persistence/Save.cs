@@ -22,7 +22,7 @@ public class Save : IEditableItem
 
     private readonly long _id;
     private readonly string _filePath;
-    private Game _game;
+    private readonly Game _game;
 
     public string? SaveName { get; set; }
     public DateTime DateMade { get; private set; }
@@ -81,11 +81,11 @@ public class Save : IEditableItem
     public static Save[] LoadAll()
     {
         if (!Directory.Exists(FolderPath))
-            return Array.Empty<Save>();
+            return [];
 
         var files = Directory.GetFiles(FolderPath, "*.json");
         if (files.Length == 0)
-            return Array.Empty<Save>();
+            return [];
 
         var results = new List<Save>();
         foreach (var file in files)
@@ -102,7 +102,7 @@ public class Save : IEditableItem
                 Console.WriteLine($"Warning: could not load save file '{file}'.");
             }
         }
-        return results.ToArray();
+        return [.. results];
     }
 
     // ── SaveData conversion ───────────────────────────────────────────────────
@@ -113,7 +113,7 @@ public class Save : IEditableItem
         var player = world.Player;
 
         // Serialize dragons
-        var dragonData = player.Backpack.Select((d, i) => new DragonData
+        var dragonData = player.Backpack.Select(static (d, i) => new DragonData
         {
             DragonType = d.Element?.EntityElement.ToString() ?? "Generic",
             Name = d.Name,
@@ -121,7 +121,7 @@ public class Save : IEditableItem
             Level = d.Level,
             Health = d.Health,
             IsFavorite = d.IsFavorite,
-            Attacks = d.Attacks.Select(a => new AttackPatternData
+            Attacks = [.. d.Attacks.Select(a => new AttackPatternData
             {
                 AttackName = a.AttackName,
                 AttackDescription = a.AttackDescription,
@@ -133,7 +133,7 @@ public class Save : IEditableItem
                     Duration = a.ElementalInfliction.Duration,
                     Magnitude = a.ElementalInfliction.Magnitude
                 }
-            }).ToArray()
+            })]
         }).ToArray();
 
         int activeIdx = player.ActiveDragon != null
@@ -171,10 +171,10 @@ public class Save : IEditableItem
     private static Save FromSaveData(SaveData data, string filePath)
     {
         // Reconstruct dragons
-        var dragons = data.Dragons.Select(d => BuildDragon(d)).ToList();
+        var dragons = data.Dragons.Select(BuildDragon).ToList();
 
         // Reconstruct player (uses internal restore constructor)
-        var player = new Player.Player(data.PlayerName, data.PlayerX, data.PlayerY, data.PlayerXp, restore: true);
+        var player = new Player.Player(data.PlayerName, data.PlayerX, data.PlayerY, data.PlayerXp);
         foreach (var d in dragons)
             player.Backpack.Add(d);
 

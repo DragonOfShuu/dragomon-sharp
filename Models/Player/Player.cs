@@ -18,7 +18,7 @@ public class Player
     /// </summary>
     public int Xp { get; internal set; }
 
-    private readonly Backpack _backpack = new();
+    private readonly Backpack _backpack = [];
     public Backpack Backpack => _backpack;
 
     private Dragons.Dragon? _activeDragon;
@@ -44,7 +44,7 @@ public class Player
     /// Restoration constructor used by the save/load system.
     /// Does NOT create a starter dragon — dragons are added via AddDragon.
     /// </summary>
-    internal Player(string name, int x, int y, int xp, bool restore)
+    internal Player(string name, int x, int y, int xp)
     {
         Name = name;
         XPos = x;

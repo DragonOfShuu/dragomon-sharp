@@ -8,7 +8,7 @@ public class Mistlands : Tile
     public override TileResult Activate(Player.Player player)
     {
         int roll = Statics.GenRNum(0, 2);
-        if (roll == 0) return new TileResult(new[] { "You entered the mistlands..." }, null, hasEncounterChance: true);
+        if (roll == 0) return new TileResult(["You entered the mistlands..."], null, hasEncounterChance: true);
 
         int level = Statics.GenRNum(76, 99);
         int dragonType = Statics.GenRNum(0, 2);
@@ -20,7 +20,7 @@ public class Mistlands : Tile
         };
 
         return new TileResult(
-            new[] { "You encountered a powerful dragon in the mistlands!" },
+            ["You encountered a powerful dragon in the mistlands!"],
             dragon,
             hasEncounterChance: true);
     }

@@ -19,8 +19,8 @@ public class SaveData
     public int WorldSizeX { get; set; }
     public int WorldSizeY { get; set; }
 
-    public TileData[][] Tiles { get; set; } = Array.Empty<TileData[]>();
-    public DragonData[] Dragons { get; set; } = Array.Empty<DragonData>();
+    public TileData[][] Tiles { get; set; } = [];
+    public DragonData[] Dragons { get; set; } = [];
 }
 
 public class TileData
@@ -38,7 +38,7 @@ public class DragonData
     public int Level { get; set; }
     public float Health { get; set; }
     public bool IsFavorite { get; set; }
-    public AttackPatternData[] Attacks { get; set; } = Array.Empty<AttackPatternData>();
+    public AttackPatternData[] Attacks { get; set; } = [];
 }
 
 public class AttackPatternData

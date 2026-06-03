@@ -7,7 +7,7 @@ namespace DragoSharp.Models;
 /// The game world: a 2-D grid of tiles plus the player.
 /// All mutation methods return data; they never call Console.
 /// </summary>
-public class World
+public class World(int sizeX, int sizeY, Player.Player player)
 {
     // ── Public helpers ────────────────────────────────────────────────────────
 
@@ -22,22 +22,13 @@ public class World
     // ── State ─────────────────────────────────────────────────────────────────
 
     /// <summary>Row-major tile storage: worldTiles[y][x].</summary>
-    private List<List<Tile>> _tiles = new();
+    private List<List<Tile>> _tiles = [];
     private bool _generated;
 
-    public int SizeX { get; private set; }
-    public int SizeY { get; private set; }
-    public Player.Player Player { get; private set; }
+    public int SizeX { get; private set; } = sizeX;
+    public int SizeY { get; private set; } = sizeY;
+    public Player.Player Player { get; private set; } = player;
     public bool IsGenerated => _generated;
-
-    // ── Construction ──────────────────────────────────────────────────────────
-
-    public World(int sizeX, int sizeY, Player.Player player)
-    {
-        SizeX = sizeX;
-        SizeY = sizeY;
-        Player = player;
-    }
 
     // ── Tile access ───────────────────────────────────────────────────────────
 
@@ -64,7 +55,7 @@ public class World
         _generated = true;
 
         // Base layer: all grassland
-        _tiles = new List<List<Tile>>();
+        _tiles = [];
         for (int y = 0; y < SizeY; y++)
         {
             var row = new List<Tile>();
@@ -90,7 +81,7 @@ public class World
         for (int y = 0; y < _tiles.Count; y++)
         {
             var row = _tiles[y];
-            float chance = 100f * (SizeX / 10f) / ((float)y * 3f);
+            float chance = 100f * (SizeX / 10f) / (y * 3f);
             for (int x = 0; x < row.Count; x++)
                 if (rand.NextSingle() * 100f <= chance)
                     SetTile(x, y, new Mountain());
@@ -133,7 +124,7 @@ public class World
             for (int x = 0; x < count; x++)
             {
                 SetTile(x, y, new Mistlands());
-                SetTile((SizeX - 1) - x, y, new Mistlands());
+                SetTile(SizeX - 1 - x, y, new Mistlands());
             }
         }
     }
@@ -147,14 +138,14 @@ public class World
     /// </summary>
     public TileResult OffsetPlayer(int dx, int dy, bool activateTile = true)
     {
-        if (!TileExists(Player.XPos + dx, Player.YPos + dy))
-            throw new IndexOutOfRangeException("Player cannot fall off the map.");
-
         Player.MovePlayer(dx, dy);
+        Tile? tile = GetTile(Player.XPos, Player.YPos);
 
-        return activateTile
-            ? GetTile(Player.XPos, Player.YPos).Activation(Player)
-            : new TileResult(Array.Empty<string>());
+        return tile == null
+            ? throw new IndexOutOfRangeException("Player cannot fall off the map.")
+            : activateTile
+            ? tile.Activation(Player)
+            : new TileResult([]);
     }
 
     // ── Serialisation support ─────────────────────────────────────────────────

@@ -4,16 +4,14 @@ namespace DragoSharp.Models.Elements;
 /// Represents an elemental state on an Entity.
 /// Pure data / logic — no I/O.
 /// </summary>
-public class ElementalState
+public class ElementalState(int frameTime, ElementType type)
 {
     private readonly List<ElementalInfliction> _inflictedElements = [];
-    private readonly ElementType _entityElement;
-
-    public ElementalState(int frameTime, ElementType type)
-    {
-        _entityElement = type;
-    }
-
+    /// <Summary>
+    ///  Frametime is the number of frames that the elemental effect will lst for.
+    /// </summary>
+    private readonly int frameTime = frameTime;
+    private readonly ElementType _entityElement = type;
 
     public ElementType EntityElement => _entityElement;
 

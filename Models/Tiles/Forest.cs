@@ -8,7 +8,7 @@ public class Forest : Tile
     public override TileResult Activate(Player.Player player)
     {
         int roll = Statics.GenRNum(0, 2);
-        if (roll == 0) return new TileResult(new[] { "You entered the forest..." }, null, hasEncounterChance: true);
+        if (roll == 0) return new TileResult(["You entered the forest..."], null, hasEncounterChance: true);
 
         int level = Statics.GenRNum(21, 45);
         int dragonType = Statics.GenRNum(0, 4);
@@ -22,7 +22,7 @@ public class Forest : Tile
         };
 
         return new TileResult(
-            new[] { "You encountered a dragon in the forest!" },
+            ["You encountered a dragon in the forest!"],
             dragon,
             hasEncounterChance: true);
     }

@@ -40,10 +40,9 @@ public class EditUI
             Screen.Clear();
 
             // Favorites bubble to the top
-            items = items
+            items = [.. items
                 .OrderByDescending(i => i.IsFavorite)
-                .ThenBy(i => i.DisplayName)
-                .ToList();
+                .ThenBy(i => i.DisplayName)];
 
             // Build the menu
             var menuLabels = items
@@ -54,7 +53,7 @@ public class EditUI
                 menuLabels.Add("Create new...");
             menuLabels.Add("Exit");
 
-            string[] options = menuLabels.ToArray();
+            string[] options = [.. menuLabels];
             int chosen = Question.ChooseItem(prompt, options);
 
             // "Exit" — last entry
@@ -133,6 +132,6 @@ public class EditUI
         if (item.CanAdd && includeAdd) list.Add(Action.Add);
         if (item.CanDelete) list.Add(Action.Delete);
         list.Add(Action.Back);
-        return list.ToArray();
+        return [.. list];
     }
 }
