@@ -17,16 +17,25 @@ public class AppController
     {
         Screen.Clear();
 
-        try { RunLogo(); }
-        catch { /* swallow Ctrl-C during logo */ }
+        try
+        {
+            RunLogo();
+        }
+        catch
+        { /* swallow Ctrl-C during logo */
+        }
 
-        Save save = DetermineSave();
+        Save? save = DetermineSave();
+        if (save == null)
+        {
+            return;
+        }
         RunGame(save);
     }
 
     // ── Save selection ────────────────────────────────────────────────────────
 
-    private Save DetermineSave()
+    private Save? DetermineSave()
     {
         Save[] saves = Save.LoadAll();
 
@@ -37,10 +46,21 @@ public class AppController
         {
             var result = EditUI.Run("Please choose a save:", saves);
 
-            if (result.Reason == EditUI.ExitReason.ItemSelected && result.SelectedItem is Save chosen)
+            if (result.Reason == EditUI.ExitReason.UserExited)
+            {
+                return null;
+            }
+
+            if (
+                result.Reason == EditUI.ExitReason.ItemSelected
+                && result.SelectedItem is Save chosen
+            )
                 return chosen.UpdateDate();
 
-            if (result.Reason == EditUI.ExitReason.CreatedNew || result.Reason == EditUI.ExitReason.UserExited)
+            if (
+                result.Reason == EditUI.ExitReason.CreatedNew
+                || result.Reason == EditUI.ExitReason.UserExited
+            )
             {
                 bool playIntro = Question.RequestBoolean("Run the intro?");
                 return new Save(SetupNewGame(playIntro));
@@ -56,8 +76,14 @@ public class AppController
 
         if (playIntro)
         {
-            try { playerName = RunIntroduction(); }
-            catch { playerName = Question.RequestString("Give your name:"); }
+            try
+            {
+                playerName = RunIntroduction();
+            }
+            catch
+            {
+                playerName = Question.RequestString("Give your name:");
+            }
         }
         else
         {
@@ -68,7 +94,8 @@ public class AppController
         int size = Question.ChooseItem(
             "What would you like the size of your world to be?",
             ["16x16", "32x32", "64x64"],
-            [16, 32, 64]);
+            [16, 32, 64]
+        );
 
         var player = new Models.Player.Player(playerName, size / 2, size / 2);
         var world = new World(size, size, player);
@@ -107,7 +134,7 @@ public class AppController
             "██║  ██║██████╔╝███████║██║  ███╗██║   ██║███████╗███████║███████║██████╔╝██████╔╝",
             "██║  ██║██╔══██╗██╔══██║██║   ██║██║   ██║╚════██║██╔══██║██╔══██║██╔══██╗██╔═══╝ ",
             "██████╔╝██║  ██║██║  ██║╚██████╔╝╚██████╔╝███████║██║  ██║██║  ██║██║  ██║██║     ",
-            "╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     "
+            "╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ",
         ];
 
         foreach (string line in logoLines)
@@ -130,17 +157,22 @@ public class AppController
         Screen.Typed("First, there was nothing.");
         Screen.Typed("Then, there was something.");
         Screen.Typed("That something was you, a Dragon Master, destined for greatness.");
-        Screen.Typed("Even though you are eternally 11 years old, and have no dad, you are destined for greatness.");
         Screen.Typed(
-            "Your mom is supportive, but she just stands awkwardly in the kitchen " +
-            "for the whole game and that's literally her entire purpose.");
+            "Even though you are eternally 11 years old, and have no dad, you are destined for greatness."
+        );
+        Screen.Typed(
+            "Your mom is supportive, but she just stands awkwardly in the kitchen "
+                + "for the whole game and that's literally her entire purpose."
+        );
         Screen.Typed("One day though, you received a mysterious letter from The Professor.");
         Screen.Typed("It read:");
         Screen.BlankLine();
         Screen.Typed("Dear Dragon Master,");
         Screen.BlankLine();
         Screen.Typed("I am Professor Tree, and I study dragons.");
-        Screen.Typed("The Plot requires that you have a goal, so I have entrusted you with this Dragodex.");
+        Screen.Typed(
+            "The Plot requires that you have a goal, so I have entrusted you with this Dragodex."
+        );
         Screen.Typed("Catch 'Em All™, and you will be the greatest Dragon Master of all time.");
         Screen.BlankLine();
         Screen.Typed("Sincerely,");
