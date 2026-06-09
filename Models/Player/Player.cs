@@ -59,18 +59,30 @@ public class Player
     /// </summary>
     public int GetLevel()
     {
-        if (Xp == 0) return 0;
-        if (Xp is >= 1 and < 5) return 1;
-        if (Xp is >= 5 and < 10) return 2;
-        if (Xp is >= 10 and < 15) return 3;
-        if (Xp is >= 15 and < 30) return 4;
-        if (Xp is >= 30 and < 45) return 5;
-        if (Xp is >= 45 and < 69) return 6;
-        if (Xp == 69) return 69;
-        if (Xp is >= 70 and < 90) return 6;
-        if (Xp is >= 90 and < 135) return 7;
-        if (Xp is >= 135 and < 270) return 8;
-        if (Xp is >= 270 and < 300) return 9;
+        if (Xp == 0)
+            return 0;
+        if (Xp is >= 1 and < 5)
+            return 1;
+        if (Xp is >= 5 and < 10)
+            return 2;
+        if (Xp is >= 10 and < 15)
+            return 3;
+        if (Xp is >= 15 and < 30)
+            return 4;
+        if (Xp is >= 30 and < 45)
+            return 5;
+        if (Xp is >= 45 and < 69)
+            return 6;
+        if (Xp == 69)
+            return 69;
+        if (Xp is >= 70 and < 90)
+            return 6;
+        if (Xp is >= 90 and < 135)
+            return 7;
+        if (Xp is >= 135 and < 270)
+            return 8;
+        if (Xp is >= 270 and < 300)
+            return 9;
         return 10;
     }
 

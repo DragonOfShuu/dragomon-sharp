@@ -11,11 +11,23 @@ public static class Pyro
     public static readonly DragonProperties Charmander = new DragonProperties()
         .Name("Charmander")
         .Description("A small reptilian dragon with a flame on its tail. Found in warm areas.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Ember").Description("A burst of embers").Damage(10).Chance(50),
-            new AttackPattern().Name("Flame Burst").Description("A sudden burst of flames").Damage(15).Infliction(new ElementalInfliction(ElementType.Pyro, 2, 1)).Chance(40),
-            new AttackPattern().Name("Scratch").Description("A fierce scratch").Damage(12).Chance(30)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Ember")
+                .WithDescription("A burst of embers")
+                .WithDamage(10)
+                .WithChance(50),
+            new AttackPattern()
+                .WithName("Flame Burst")
+                .WithDescription("A sudden burst of flames")
+                .WithDamage(15)
+                .WithInfliction(new ElementalInfliction(ElementType.Pyro, 2, 1))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Scratch")
+                .WithDescription("A fierce scratch")
+                .WithDamage(12)
+                .WithChance(30),
         ])
         .Chance(30)
         .AddTo(pyroDragons);
@@ -24,11 +36,23 @@ public static class Pyro
     public static readonly DragonProperties Vulpix = new DragonProperties()
         .Name("Vulpix")
         .Description("A fox-like fire dragon with multiple tails. Commonly found in warm regions.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Ember").Description("A burst of embers").Damage(12).Chance(50),
-            new AttackPattern().Name("Fire Spin").Description("A spiraling inferno").Damage(16).Infliction(new ElementalInfliction(ElementType.Pyro, 2, 1)).Chance(35),
-            new AttackPattern().Name("Quick Attack").Description("A swift strike").Damage(14).Chance(35)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Ember")
+                .WithDescription("A burst of embers")
+                .WithDamage(12)
+                .WithChance(50),
+            new AttackPattern()
+                .WithName("Fire Spin")
+                .WithDescription("A spiraling inferno")
+                .WithDamage(16)
+                .WithInfliction(new ElementalInfliction(ElementType.Pyro, 2, 1))
+                .WithChance(35),
+            new AttackPattern()
+                .WithName("Quick Attack")
+                .WithDescription("A swift strike")
+                .WithDamage(14)
+                .WithChance(35),
         ])
         .Chance(35)
         .AddTo(pyroDragons);
@@ -37,11 +61,23 @@ public static class Pyro
     public static readonly DragonProperties Growlithe = new DragonProperties()
         .Name("Growlithe")
         .Description("A fierce canine fire dragon. Known for its aggressive temperament.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Bite").Description("A vicious bite").Damage(18).Chance(45),
-            new AttackPattern().Name("Flame Charge").Description("A charging attack wreathed in flames").Damage(20).Infliction(new ElementalInfliction(ElementType.Pyro, 3, 2)).Chance(40),
-            new AttackPattern().Name("Wild Charge").Description("A wild, desperate attack").Damage(22).Chance(25)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Bite")
+                .WithDescription("A vicious bite")
+                .WithDamage(18)
+                .WithChance(45),
+            new AttackPattern()
+                .WithName("Flame Charge")
+                .WithDescription("A charging attack wreathed in flames")
+                .WithDamage(20)
+                .WithInfliction(new ElementalInfliction(ElementType.Pyro, 3, 2))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Wild Charge")
+                .WithDescription("A wild, desperate attack")
+                .WithDamage(22)
+                .WithChance(25),
         ])
         .Chance(25)
         .AddTo(pyroDragons);
@@ -50,11 +86,23 @@ public static class Pyro
     public static readonly DragonProperties Ponyta = new DragonProperties()
         .Name("Ponyta")
         .Description("An equine fire dragon wreathed in flames. Found in mountainous terrain.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Fury Attack").Description("A flurry of strikes").Damage(22).Chance(40),
-            new AttackPattern().Name("Fire Blast").Description("An intense column of flames").Damage(25).Infliction(new ElementalInfliction(ElementType.Pyro, 3, 2)).Chance(38),
-            new AttackPattern().Name("Inferno").Description("The ultimate fire attack").Damage(28).Chance(22)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Fury Attack")
+                .WithDescription("A flurry of strikes")
+                .WithDamage(22)
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Fire Blast")
+                .WithDescription("An intense column of flames")
+                .WithDamage(25)
+                .WithInfliction(new ElementalInfliction(ElementType.Pyro, 3, 2))
+                .WithChance(38),
+            new AttackPattern()
+                .WithName("Inferno")
+                .WithDescription("The ultimate fire attack")
+                .WithDamage(28)
+                .WithChance(22),
         ])
         .Chance(15)
         .AddTo(pyroDragons);
@@ -63,12 +111,29 @@ public static class Pyro
     public static readonly DragonProperties Flareon = new DragonProperties()
         .Name("Flareon")
         .Description("An evolved fire dragon of immense power. A rare sight in the mystlands.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Fire Punch").Description("A punch engulfed in flames").Damage(28).Chance(35),
-            new AttackPattern().Name("Overheat").Description("Releases all internal fire at once").Damage(32).Infliction(new ElementalInfliction(ElementType.Pyro, 4, 3)).Chance(40),
-            new AttackPattern().Name("Flamethrower").Description("A sustained stream of fire").Damage(30).Chance(25),
-            new AttackPattern().Name("Burning Rage").Description("Enraged flames of destruction").Damage(35).Infliction(new ElementalInfliction(ElementType.Burning, 5, 2)).Chance(20)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Fire Punch")
+                .WithDescription("A punch engulfed in flames")
+                .WithDamage(28)
+                .WithChance(35),
+            new AttackPattern()
+                .WithName("Overheat")
+                .WithDescription("Releases all internal fire at once")
+                .WithDamage(32)
+                .WithInfliction(new ElementalInfliction(ElementType.Pyro, 4, 3))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Flamethrower")
+                .WithDescription("A sustained stream of fire")
+                .WithDamage(30)
+                .WithChance(25),
+            new AttackPattern()
+                .WithName("Burning Rage")
+                .WithDescription("Enraged flames of destruction")
+                .WithDamage(35)
+                .WithInfliction(new ElementalInfliction(ElementType.Burning, 5, 2))
+                .WithChance(20),
         ])
         .Chance(10)
         .AddTo(pyroDragons);
@@ -81,7 +146,12 @@ public static class Pyro
     /// <param name="maxHealth">Maximum health value. Defaults to 100.</param>
     /// <param name="properties">Specific dragon properties to use. If null, a random Pyro dragon is selected.</param>
     /// <returns>A new Pyro dragon instance.</returns>
-    public static Dragon CreateDragon(int level, float health = 1f, float maxHealth = 100f, DragonProperties? properties = null)
+    public static Dragon CreateDragon(
+        int level,
+        float health = 1f,
+        float maxHealth = 100f,
+        DragonProperties? properties = null
+    )
     {
         // Normalize health between 0 and 1
         health = Math.Clamp(health, 0f, 1f);
@@ -151,5 +221,3 @@ public static class Pyro
         return selectedAttacks;
     }
 }
-
-

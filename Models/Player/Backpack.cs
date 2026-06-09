@@ -7,5 +7,5 @@ namespace DragoSharp.Models.Player;
 public class Backpack : List<Dragons.Dragon>
 {
     /// <summary>Returns only the dragons in the backpack (filter-safe accessor).</summary>
-    public IReadOnlyList<Dragons.Dragon> Dragons => this.AsReadOnly();
+    public IReadOnlyList<Dragons.Dragon> Dragons => AsReadOnly();
 }

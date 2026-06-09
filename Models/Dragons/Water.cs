@@ -11,11 +11,23 @@ public static class Hydro
     public static readonly DragonProperties Squirtle = new DragonProperties()
         .Name("Squirtle")
         .Description("A small aquatic dragon with a protective shell. Found in water regions.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Water Gun").Description("A spray of water").Damage(10).Chance(50),
-            new AttackPattern().Name("Bubble Beam").Description("Bubbles rise up in a beam").Damage(15).Infliction(new ElementalInfliction(ElementType.Hydro, 2, 1)).Chance(40),
-            new AttackPattern().Name("Withdraw").Description("Retreats into shell for protection").Damage(5).Chance(25)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Water Gun")
+                .WithDescription("A spray of water")
+                .WithDamage(10)
+                .WithChance(50),
+            new AttackPattern()
+                .WithName("Bubble Beam")
+                .WithDescription("Bubbles rise up in a beam")
+                .WithDamage(15)
+                .WithInfliction(new ElementalInfliction(ElementType.Hydro, 2, 1))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Withdraw")
+                .WithDescription("Retreats into shell for protection")
+                .WithDamage(5)
+                .WithChance(25),
         ])
         .Chance(30)
         .AddTo(hydroDragons);
@@ -24,11 +36,23 @@ public static class Hydro
     public static readonly DragonProperties Psyduck = new DragonProperties()
         .Name("Psyduck")
         .Description("A confused and wandering water dragon often seen near water.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Water Pulse").Description("Pulses of water strike foe").Damage(12).Chance(50),
-            new AttackPattern().Name("Hydro Pump").Description("A torrent of water").Damage(16).Infliction(new ElementalInfliction(ElementType.Hydro, 2, 1)).Chance(35),
-            new AttackPattern().Name("Confusion").Description("Psychic confusion attack").Damage(14).Chance(35)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Water Pulse")
+                .WithDescription("Pulses of water strike foe")
+                .WithDamage(12)
+                .WithChance(50),
+            new AttackPattern()
+                .WithName("Hydro Pump")
+                .WithDescription("A torrent of water")
+                .WithDamage(16)
+                .WithInfliction(new ElementalInfliction(ElementType.Hydro, 2, 1))
+                .WithChance(35),
+            new AttackPattern()
+                .WithName("Confusion")
+                .WithDescription("Psychic confusion attack")
+                .WithDamage(14)
+                .WithChance(35),
         ])
         .Chance(35)
         .AddTo(hydroDragons);
@@ -37,11 +61,23 @@ public static class Hydro
     public static readonly DragonProperties Slowpoke = new DragonProperties()
         .Name("Slowpoke")
         .Description("A slow-moving water dragon with limited intelligence but great power.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Water Sport").Description("Wets the area to reduce fire").Damage(13).Chance(45),
-            new AttackPattern().Name("Aqua Ring").Description("Water swirls around foe").Damage(18).Infliction(new ElementalInfliction(ElementType.Hydro, 3, 2)).Chance(40),
-            new AttackPattern().Name("Headbutt").Description("A powerful headbutt").Damage(16).Chance(25)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Water Sport")
+                .WithDescription("Wets the area to reduce fire")
+                .WithDamage(13)
+                .WithChance(45),
+            new AttackPattern()
+                .WithName("Aqua Ring")
+                .WithDescription("Water swirls around foe")
+                .WithDamage(18)
+                .WithInfliction(new ElementalInfliction(ElementType.Hydro, 3, 2))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Headbutt")
+                .WithDescription("A powerful headbutt")
+                .WithDamage(16)
+                .WithChance(25),
         ])
         .Chance(25)
         .AddTo(hydroDragons);
@@ -50,11 +86,23 @@ public static class Hydro
     public static readonly DragonProperties Horsea = new DragonProperties()
         .Name("Horsea")
         .Description("An elegant seahorse-like water dragon found in deep waters.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Dragon Rage").Description("The ancient power of dragons").Damage(20).Chance(40),
-            new AttackPattern().Name("Hydro Cannon").Description("A powerful cannon of water").Damage(24).Infliction(new ElementalInfliction(ElementType.Hydro, 3, 2)).Chance(38),
-            new AttackPattern().Name("Brine").Description("A concentrated salt water attack").Damage(22).Chance(22)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Dragon Rage")
+                .WithDescription("The ancient power of dragons")
+                .WithDamage(20)
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Hydro Cannon")
+                .WithDescription("A powerful cannon of water")
+                .WithDamage(24)
+                .WithInfliction(new ElementalInfliction(ElementType.Hydro, 3, 2))
+                .WithChance(38),
+            new AttackPattern()
+                .WithName("Brine")
+                .WithDescription("A concentrated salt water attack")
+                .WithDamage(22)
+                .WithChance(22),
         ])
         .Chance(15)
         .AddTo(hydroDragons);
@@ -62,13 +110,32 @@ public static class Hydro
     // Vaporeon - rare water dragon from mystlands (evolved water type)
     public static readonly DragonProperties Vaporeon = new DragonProperties()
         .Name("Vaporeon")
-        .Description("An evolved water dragon that blends seamlessly with its environment. Found in mystical waters.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Water Shuriken").Description("Water shuriken attacks").Damage(22).Chance(35),
-            new AttackPattern().Name("Aqua Jet").Description("A jet of water propels the dragon").Damage(28).Infliction(new ElementalInfliction(ElementType.Hydro, 4, 2)).Chance(40),
-            new AttackPattern().Name("Waterfall").Description("Water falls down upon the foe").Damage(26).Chance(25),
-            new AttackPattern().Name("Tidal Wave").Description("A massive wave of destruction").Damage(31).Infliction(new ElementalInfliction(ElementType.Vaporise, 4, 2)).Chance(20)
+        .Description(
+            "An evolved water dragon that blends seamlessly with its environment. Found in mystical waters."
+        )
+        .Attacks([
+            new AttackPattern()
+                .WithName("Water Shuriken")
+                .WithDescription("Water shuriken attacks")
+                .WithDamage(22)
+                .WithChance(35),
+            new AttackPattern()
+                .WithName("Aqua Jet")
+                .WithDescription("A jet of water propels the dragon")
+                .WithDamage(28)
+                .WithInfliction(new ElementalInfliction(ElementType.Hydro, 4, 2))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Waterfall")
+                .WithDescription("Water falls down upon the foe")
+                .WithDamage(26)
+                .WithChance(25),
+            new AttackPattern()
+                .WithName("Tidal Wave")
+                .WithDescription("A massive wave of destruction")
+                .WithDamage(31)
+                .WithInfliction(new ElementalInfliction(ElementType.Vaporise, 4, 2))
+                .WithChance(20),
         ])
         .Chance(10)
         .AddTo(hydroDragons);
@@ -76,7 +143,12 @@ public static class Hydro
     /// <summary>
     /// Creates a Hydro-type dragon.
     /// </summary>
-    public static Dragon CreateDragon(int level, float health = 1f, float maxHealth = 100f, DragonProperties? properties = null)
+    public static Dragon CreateDragon(
+        int level,
+        float health = 1f,
+        float maxHealth = 100f,
+        DragonProperties? properties = null
+    )
     {
         health = Math.Clamp(health, 0f, 1f);
         float actualHealth = health * maxHealth;
@@ -141,4 +213,3 @@ public static class Hydro
         return selectedAttacks;
     }
 }
-

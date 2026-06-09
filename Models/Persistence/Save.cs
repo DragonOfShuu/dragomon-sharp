@@ -229,14 +229,14 @@ public class Save : IEditableItem
             dragon.Attacks.AddRange(d.Attacks.Select(a =>
             {
                 var pattern = new AttackPattern()
-                    .Name(a.AttackName)
-                    .Description(a.AttackDescription)
-                    .Damage(a.AttackDmg)
-                    .Chance(a.SelectionChance);
+                    .WithName(a.AttackName)
+                    .WithDescription(a.AttackDescription)
+                    .WithDamage(a.AttackDmg)
+                    .WithChance(a.SelectionChance);
                 if (a.ElementalInfliction != null &&
                     Enum.TryParse<ElementType>(a.ElementalInfliction.Type, out var elemType))
                 {
-                    pattern.Infliction(new ElementalInfliction(elemType, a.ElementalInfliction.Duration, a.ElementalInfliction.Magnitude));
+                    pattern.WithInfliction(new ElementalInfliction(elemType, a.ElementalInfliction.Duration, a.ElementalInfliction.Magnitude));
                 }
                 return pattern;
             }));

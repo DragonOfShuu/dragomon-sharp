@@ -11,11 +11,23 @@ public static class Cryo
     public static readonly DragonProperties Seel = new DragonProperties()
         .Name("Seel")
         .Description("A graceful ice dragon with a sleek form adapted for frozen waters.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Ice Shard").Description("Shards of ice strike").Damage(11).Chance(50),
-            new AttackPattern().Name("Aurora Beam").Description("A beam of icy light").Damage(15).Infliction(new ElementalInfliction(ElementType.Cryo, 2, 1)).Chance(40),
-            new AttackPattern().Name("Aqua Jet").Description("A jet of icy water").Damage(13).Chance(30)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Ice Shard")
+                .WithDescription("Shards of ice strike")
+                .WithDamage(11)
+                .WithChance(50),
+            new AttackPattern()
+                .WithName("Aurora Beam")
+                .WithDescription("A beam of icy light")
+                .WithDamage(15)
+                .WithInfliction(new ElementalInfliction(ElementType.Cryo, 2, 1))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Aqua Jet")
+                .WithDescription("A jet of icy water")
+                .WithDamage(13)
+                .WithChance(30),
         ])
         .Chance(30)
         .AddTo(cryoDragons);
@@ -24,11 +36,23 @@ public static class Cryo
     public static readonly DragonProperties Shellder = new DragonProperties()
         .Name("Shellder")
         .Description("A small crustacean ice dragon protected by a hard crystalline shell.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Clamp").Description("Clamps down with icy grip").Damage(12).Chance(45),
-            new AttackPattern().Name("Ice Beam").Description("A beam of freezing ice").Damage(16).Infliction(new ElementalInfliction(ElementType.Cryo, 2, 1)).Chance(38),
-            new AttackPattern().Name("Icicle Spear").Description("Spears of ice attack").Damage(14).Chance(35)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Clamp")
+                .WithDescription("Clamps down with icy grip")
+                .WithDamage(12)
+                .WithChance(45),
+            new AttackPattern()
+                .WithName("Ice Beam")
+                .WithDescription("A beam of freezing ice")
+                .WithDamage(16)
+                .WithInfliction(new ElementalInfliction(ElementType.Cryo, 2, 1))
+                .WithChance(38),
+            new AttackPattern()
+                .WithName("Icicle Spear")
+                .WithDescription("Spears of ice attack")
+                .WithDamage(14)
+                .WithChance(35),
         ])
         .Chance(28)
         .AddTo(cryoDragons);
@@ -37,11 +61,23 @@ public static class Cryo
     public static readonly DragonProperties Swinub = new DragonProperties()
         .Name("Swinub")
         .Description("A sturdy ice dragon with a thick coat adapted to extreme cold.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Powder Snow").Description("Powder of snow").Damage(13).Chance(50),
-            new AttackPattern().Name("Blizzard").Description("A fierce blizzard").Damage(17).Infliction(new ElementalInfliction(ElementType.Cryo, 2, 1)).Chance(40),
-            new AttackPattern().Name("Ancient Power").Description("The power of ancient ice").Damage(15).Chance(35)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Powder Snow")
+                .WithDescription("Powder of snow")
+                .WithDamage(13)
+                .WithChance(50),
+            new AttackPattern()
+                .WithName("Blizzard")
+                .WithDescription("A fierce blizzard")
+                .WithDamage(17)
+                .WithInfliction(new ElementalInfliction(ElementType.Cryo, 2, 1))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Ancient Power")
+                .WithDescription("The power of ancient ice")
+                .WithDamage(15)
+                .WithChance(35),
         ])
         .Chance(32)
         .AddTo(cryoDragons);
@@ -50,11 +86,24 @@ public static class Cryo
     public static readonly DragonProperties Lapras = new DragonProperties()
         .Name("Lapras")
         .Description("A majestic ice dragon of great size and ancient wisdom. Rarely encountered.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Ice Crash").Description("Ice crashes down").Damage(20).Chance(40),
-            new AttackPattern().Name("Absolute Zero").Description("The ultimate freezing attack").Damage(23).Infliction(new ElementalInfliction(ElementType.Cryo, 3, 2)).Chance(40),
-            new AttackPattern().Name("Glacial Spikes").Description("Spikes of glacial ice").Damage(25).Infliction(new ElementalInfliction(ElementType.Freeze, 3, 1)).Chance(20)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Ice Crash")
+                .WithDescription("Ice crashes down")
+                .WithDamage(20)
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Absolute Zero")
+                .WithDescription("The ultimate freezing attack")
+                .WithDamage(23)
+                .WithInfliction(new ElementalInfliction(ElementType.Cryo, 3, 2))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Glacial Spikes")
+                .WithDescription("Spikes of glacial ice")
+                .WithDamage(25)
+                .WithInfliction(new ElementalInfliction(ElementType.Freeze, 3, 1))
+                .WithChance(20),
         ])
         .Chance(15)
         .AddTo(cryoDragons);
@@ -63,12 +112,29 @@ public static class Cryo
     public static readonly DragonProperties Glaceon = new DragonProperties()
         .Name("Glaceon")
         .Description("An evolved ice dragon of crystalline beauty. Found only in the mystlands.")
-        .Attacks(
-        [
-            new AttackPattern().Name("Ice Punch").Description("A punch of frozen power").Damage(27).Chance(35),
-            new AttackPattern().Name("Ice Storm").Description("A storm of ice and snow").Damage(31).Infliction(new ElementalInfliction(ElementType.Cryo, 4, 2)).Chance(40),
-            new AttackPattern().Name("Icy Wind").Description("Wind of freezing cold").Damage(29).Chance(25),
-            new AttackPattern().Name("Eternal Winter").Description("An eternal freeze descends").Damage(34).Infliction(new ElementalInfliction(ElementType.Freeze, 4, 2)).Chance(20)
+        .Attacks([
+            new AttackPattern()
+                .WithName("Ice Punch")
+                .WithDescription("A punch of frozen power")
+                .WithDamage(27)
+                .WithChance(35),
+            new AttackPattern()
+                .WithName("Ice Storm")
+                .WithDescription("A storm of ice and snow")
+                .WithDamage(31)
+                .WithInfliction(new ElementalInfliction(ElementType.Cryo, 4, 2))
+                .WithChance(40),
+            new AttackPattern()
+                .WithName("Icy Wind")
+                .WithDescription("Wind of freezing cold")
+                .WithDamage(29)
+                .WithChance(25),
+            new AttackPattern()
+                .WithName("Eternal Winter")
+                .WithDescription("An eternal freeze descends")
+                .WithDamage(34)
+                .WithInfliction(new ElementalInfliction(ElementType.Freeze, 4, 2))
+                .WithChance(20),
         ])
         .Chance(10)
         .AddTo(cryoDragons);
@@ -76,7 +142,12 @@ public static class Cryo
     /// <summary>
     /// Creates a Cryo-type dragon.
     /// </summary>
-    public static Dragon CreateDragon(int level, float health = 1f, float maxHealth = 100f, DragonProperties? properties = null)
+    public static Dragon CreateDragon(
+        int level,
+        float health = 1f,
+        float maxHealth = 100f,
+        DragonProperties? properties = null
+    )
     {
         health = Math.Clamp(health, 0f, 1f);
         float actualHealth = health * maxHealth;
@@ -141,5 +212,3 @@ public static class Cryo
         return selectedAttacks;
     }
 }
-
-

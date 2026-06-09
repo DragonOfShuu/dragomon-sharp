@@ -8,45 +8,45 @@ namespace DragoSharp.Models.Dragons;
 /// </summary>
 public class AttackPattern
 {
-    private string? _name;
-    private string? _description;
-    private int _attackDmg;
-    private ElementalInfliction? _elementalInfliction;
-    private int _chance = 1;
+    public string AttackName { get; private set; } = "Unknown Attack";
+    public string AttackDescription { get; private set; } = "A mysterious attack.";
+    public int AttackDmg { get; private set; }
+    public ElementalInfliction? ElementalInfliction { get; private set; }
+    public int SelectionChance { get; private set; } = 1;
 
     /// <summary>
     /// Sets the name of the attack.
     /// </summary>
-    public AttackPattern Name(string name)
+    public AttackPattern WithName(string name)
     {
-        _name = name;
+        AttackName = name;
         return this;
     }
 
     /// <summary>
     /// Sets the description of the attack.
     /// </summary>
-    public AttackPattern Description(string description)
+    public AttackPattern WithDescription(string description)
     {
-        _description = description;
+        AttackDescription = description;
         return this;
     }
 
     /// <summary>
     /// Sets the damage value of this attack.
     /// </summary>
-    public AttackPattern Damage(int dmg)
+    public AttackPattern WithDamage(int dmg)
     {
-        _attackDmg = dmg;
+        AttackDmg = dmg;
         return this;
     }
 
     /// <summary>
     /// Sets the optional elemental infliction for this attack.
     /// </summary>
-    public AttackPattern Infliction(ElementalInfliction? infliction)
+    public AttackPattern WithInfliction(ElementalInfliction? infliction)
     {
-        _elementalInfliction = infliction;
+        ElementalInfliction = infliction;
         return this;
     }
 
@@ -54,16 +54,9 @@ public class AttackPattern
     /// Sets the relative chance/weight for this attack to be selected.
     /// Higher values increase the likelihood of selection.
     /// </summary>
-    public AttackPattern Chance(int chance)
+    public AttackPattern WithChance(int chance)
     {
-        _chance = chance;
+        SelectionChance = chance;
         return this;
     }
-
-    // Public properties for accessing built values
-    public string AttackName => _name ?? "Unknown Attack";
-    public string AttackDescription => _description ?? "A mysterious attack.";
-    public int AttackDmg => _attackDmg;
-    public ElementalInfliction? ElementalInfliction => _elementalInfliction;
-    public int SelectionChance => _chance;
 }

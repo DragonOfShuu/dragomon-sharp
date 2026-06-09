@@ -1,31 +1,28 @@
-using DragoSharp.Common; 
+using DragoSharp.Common;
 
 namespace DragoSharp.Models.Items;
 
-public class Item : IEditableItem
+public class Item(ItemProperties properties) : IEditableItem
 {
-    public Item()
-    {
-      
-    }
+    public string DisplayName => properties.Name;
 
-    public string DisplayName => throw new NotImplementedException();
+    public string? Description => properties.Description;
 
-    public string? Description => throw new NotImplementedException();
-
-    public bool IsFavorite => throw new NotImplementedException();
+    public bool IsFavorite => _isFavorite;
 
     public bool CanDelete => throw new NotImplementedException();
 
-    public bool CanAdd => throw new NotImplementedException();
+    public bool CanAdd => false;
 
-    public bool IsCompleteObjectAddition => throw new NotImplementedException();
+    public bool IsCompleteObjectAddition => false;
 
-    public bool CanRename => throw new NotImplementedException();
+    public bool CanRename => false;
 
     public bool CanUse => throw new NotImplementedException();
 
-    public bool CanFavorite => throw new NotImplementedException();
+    public bool CanFavorite => true;
+
+    private bool _isFavorite = false;
 
     public bool Add()
     {
@@ -44,7 +41,13 @@ public class Item : IEditableItem
 
     public bool ToggleFavorite()
     {
-        throw new NotImplementedException();
+        return ToggleFavorite(!_isFavorite);
+    }
+
+    public bool ToggleFavorite(bool value)
+    {
+        _isFavorite = value;
+        return _isFavorite;
     }
 
     public bool Use()

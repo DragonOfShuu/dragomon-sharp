@@ -40,11 +40,12 @@ public class GameController
             "Move East",
             "Move West",
             "Move South",
-            "-",              // index 4 — secret easter egg
+            "-", // index 4 — secret easter egg
             "Open Backpack",
             "Open Map",
             "Open Settings",
-            "Close Game");
+            "Close Game"
+        );
 
         try
         {
@@ -54,12 +55,14 @@ public class GameController
         {
             // Player walked off the map
             Screen.Typed(
-                "You peer over a sudden cliff down towards an infinite void. " +
-                "Your brain cannot comprehend its sheer vastness.");
+                "You peer over a sudden cliff down towards an infinite void. "
+                    + "Your brain cannot comprehend its sheer vastness."
+            );
             Screen.Typed(
-                "You suddenly awake, about three feet away from the cliff. " +
-                "You do not know how much time has passed since you peered over its edge, " +
-                "but you get the feeling you should not do it again.");
+                "You suddenly awake, about three feet away from the cliff. "
+                    + "You do not know how much time has passed since you peered over its edge, "
+                    + "but you get the feeling you should not do it again."
+            );
             return true;
         }
     }
@@ -71,10 +74,18 @@ public class GameController
         switch (action)
         {
             // Movement — (0,0) is bottom-left; north = +y, east = +x
-            case 0: HandleMove(0, 1); break;   // North
-            case 1: HandleMove(1, 0); break;   // East
-            case 2: HandleMove(-1, 0); break;   // West
-            case 3: HandleMove(0, -1); break;   // South
+            case 0:
+                HandleMove(0, 1);
+                break; // North
+            case 1:
+                HandleMove(1, 0);
+                break; // East
+            case 2:
+                HandleMove(-1, 0);
+                break; // West
+            case 3:
+                HandleMove(0, -1);
+                break; // South
 
             case 4:
                 Screen.Typed("Congrats! You found an easter egg! Now move along...");
