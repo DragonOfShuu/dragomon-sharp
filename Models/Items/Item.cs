@@ -1,57 +1,21 @@
-using DragoSharp.Common;
-
 namespace DragoSharp.Models.Items;
 
-public class Item(ItemProperties properties) : IEditableItem
+public class Item(ItemProperties properties)
 {
     public string DisplayName => properties.Name;
 
     public string? Description => properties.Description;
 
-    public bool IsFavorite => _isFavorite;
+    public bool Consumable => properties.Consumable;
 
-    public bool CanDelete => throw new NotImplementedException();
-
-    public bool CanAdd => false;
-
-    public bool IsCompleteObjectAddition => false;
-
-    public bool CanRename => false;
-
-    public bool CanUse => throw new NotImplementedException();
-
-    public bool CanFavorite => true;
-
-    private bool _isFavorite = false;
-
-    public bool Add()
+    public void Consume()
     {
-        throw new NotImplementedException();
+        if (!Consumable)
+        {
+            throw new InvalidOperationException($"{DisplayName} is not consumable.");
+        }
     }
 
-    public bool Delete()
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool Rename(string newName)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool ToggleFavorite()
-    {
-        return ToggleFavorite(!_isFavorite);
-    }
-
-    public bool ToggleFavorite(bool value)
-    {
-        _isFavorite = value;
-        return _isFavorite;
-    }
-
-    public bool Use()
-    {
-        throw new NotImplementedException();
-    }
+    /// <summary> An overridable method that is called when the item is consumed. This can be used to apply effects or trigger events. </summary>
+    public void OnConsume() { }
 }
