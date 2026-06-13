@@ -8,6 +8,8 @@ public class Item(ItemProperties properties)
 
     public bool Consumable => properties.Consumable;
 
+    public bool Deletable => properties.Deletable;
+
     public void Consume()
     {
         if (!Consumable)

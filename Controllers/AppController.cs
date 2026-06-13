@@ -57,10 +57,7 @@ public class AppController
             )
                 return chosen.UpdateDate();
 
-            if (
-                result.Reason == EditUI.ExitReason.CreatedNew
-                || result.Reason == EditUI.ExitReason.UserExited
-            )
+            if (result.Reason == EditUI.ExitReason.CreatedNew)
             {
                 bool playIntro = Question.RequestBoolean("Run the intro?");
                 return new Save(SetupNewGame(playIntro));

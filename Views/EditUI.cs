@@ -12,16 +12,38 @@ public class EditUI
 {
     // ── Inner types ───────────────────────────────────────────────────────────
 
-    private enum Action { Delete, Add, Rename, Use, Favourite, Back }
+    private enum Action
+    {
+        Delete,
+        Add,
+        Rename,
+        Use,
+        Favourite,
+        Back,
+    }
 
     /// <summary>How the EditUI session ended.</summary>
-    public enum ExitReason { UserExited, ItemSelected, CreatedNew }
+    public enum ExitReason
+    {
+        UserExited,
+        ItemSelected,
+        CreatedNew,
+    }
 
-    public class Result
+    public class Result<T>
+        where T : IEditableItem
     {
         public ExitReason Reason { get; init; }
-        public IEditableItem? SelectedItem { get; init; }
+        public T? SelectedItem { get; init; }
+        public IEnumerable<T> NewItems { get; init; } = [];
         public bool CreatedNew => Reason == ExitReason.CreatedNew;
+    }
+
+    public class ItemManipulationResult<T>
+        where T : IEditableItem
+    {
+        public T? SelectedItem { get; init; } = default;
+        public IEnumerable<T>? NewItems { get; init; } = null;
     }
 
     // ── Entry point ───────────────────────────────────────────────────────────
@@ -30,7 +52,8 @@ public class EditUI
     /// Runs the interactive list editor and returns a Result describing
     /// how the user exited and what (if anything) they selected.
     /// </summary>
-    public static Result Run(string prompt, IEnumerable<IEditableItem> source)
+    public static Result<T> Run<T>(string prompt, IEnumerable<T> source)
+        where T : IEditableItem
     {
         var items = source.ToList();
         bool supportsCreate = items.Count > 0 && items[0].IsCompleteObjectAddition;
@@ -40,14 +63,10 @@ public class EditUI
             Screen.Clear();
 
             // Favorites bubble to the top
-            items = [.. items
-                .OrderByDescending(i => i.IsFavorite)
-                .ThenBy(i => i.DisplayName)];
+            items = [.. items.OrderByDescending(i => i.IsFavorite).ThenBy(i => i.DisplayName)];
 
             // Build the menu
-            var menuLabels = items
-                .Select(i => (i.IsFavorite ? "★ " : "") + i.DisplayName)
-                .ToList();
+            var menuLabels = items.Select(i => (i.IsFavorite ? "★ " : "") + i.DisplayName).ToList();
 
             if (supportsCreate)
                 menuLabels.Add("Create new...");
@@ -58,26 +77,40 @@ public class EditUI
 
             // "Exit" — last entry
             if (chosen == options.Length - 1)
-                return new Result { Reason = ExitReason.UserExited };
+                return new Result<T> { Reason = ExitReason.UserExited, NewItems = items };
 
             // "Create new…" — second-to-last when available
             if (supportsCreate && chosen == options.Length - 2)
-                return new Result { Reason = ExitReason.CreatedNew };
+                return new Result<T> { Reason = ExitReason.CreatedNew, NewItems = items };
 
-            IEditableItem item = items[chosen];
+            T item = items[chosen];
 
             var actionResult = ManipulateItem(item, items, chosen, supportsCreate);
-            if (actionResult is not null)
-                return actionResult;
-            // null means "stay in the loop"
+
+            if (actionResult.NewItems is not null)
+                items = [.. actionResult.NewItems]; // update list if item was deleted
+
+            if (actionResult.SelectedItem is not null)
+                return new Result<T>
+                {
+                    Reason = ExitReason.ItemSelected,
+                    SelectedItem = actionResult.SelectedItem,
+                    NewItems = items,
+                };
         }
     }
 
     // ── Item interaction ──────────────────────────────────────────────────────
 
-    private static Result? ManipulateItem(
-        IEditableItem item, List<IEditableItem> items, int idx, bool supportsCreate)
+    private static ItemManipulationResult<T> ManipulateItem<T>(
+        T item,
+        IEnumerable<T> oldItems,
+        int idx,
+        bool supportsCreate
+    )
+        where T : IEditableItem
     {
+        List<T> items = [.. oldItems]; // make a mutable copy
         while (true)
         {
             Console.WriteLine($"{item.DisplayName} selected.");
@@ -91,8 +124,8 @@ public class EditUI
             {
                 case Action.Use:
                     if (item.Use())
-                        return new Result { Reason = ExitReason.ItemSelected, SelectedItem = item };
-                    break;   // Use returned false → stay on the item
+                        return new ItemManipulationResult<T> { SelectedItem = item };
+                    break; // Use returned false → stay on the item
 
                 case Action.Favourite:
                     item.ToggleFavorite();
@@ -111,12 +144,12 @@ public class EditUI
                     if (item.Delete())
                     {
                         items.RemoveAt(idx);
-                        return null;   // back to list
+                        return new ItemManipulationResult<T> { NewItems = items }; // back to list
                     }
                     break;
 
                 case Action.Back:
-                    return null;   // back to list
+                    return new ItemManipulationResult<T> { NewItems = null }; // back to list
             }
         }
     }
@@ -126,11 +159,16 @@ public class EditUI
     private static Action[] AvailableActions(IEditableItem item, bool includeAdd)
     {
         var list = new List<Action>();
-        if (item.CanUse) list.Add(Action.Use);
-        if (item.CanFavorite) list.Add(Action.Favourite);
-        if (item.CanRename) list.Add(Action.Rename);
-        if (item.CanAdd && includeAdd) list.Add(Action.Add);
-        if (item.CanDelete) list.Add(Action.Delete);
+        if (item.CanUse)
+            list.Add(Action.Use);
+        if (item.CanFavorite)
+            list.Add(Action.Favourite);
+        if (item.CanRename)
+            list.Add(Action.Rename);
+        if (item.CanAdd && includeAdd)
+            list.Add(Action.Add);
+        if (item.CanDelete)
+            list.Add(Action.Delete);
         list.Add(Action.Back);
         return [.. list];
     }

@@ -16,10 +16,12 @@ public interface IEditableItem
     bool IsFavorite { get; }
 
     bool CanDelete { get; }
-    /// <returns>True if the item was successfully deleted.</returns>
+
+    /// <returns>True if the item was successfully deleted functionally (if necessary). If this function returns true, it will be removed from the collection.</returns>
     bool Delete();
 
     bool CanAdd { get; }
+
     /// <returns>True if the item was successfully added to a collection.</returns>
     bool Add();
 
@@ -30,10 +32,12 @@ public interface IEditableItem
     bool IsCompleteObjectAddition { get; }
 
     bool CanRename { get; }
+
     /// <param name="newName">The new name supplied by the view after prompting the user.</param>
     bool Rename(string newName);
 
     bool CanUse { get; }
+
     /// <returns>True if the caller should treat this as a "select and exit" event.</returns>
     bool Use();
 
